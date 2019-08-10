@@ -17,8 +17,9 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Audiowide|Montserrat|Montserrat+Alternates|Abril+Fatface|Raleway:300,400,500,600,700,800&display=swap" rel="stylesheet">
 
-  <script type="text/javascript" src="js/main.js"></script>
   <script type="text/javascript" src="js/utils.js"></script>
+  <script type="text/javascript" src="js/game.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
 </head>
 
 <body>
@@ -27,9 +28,9 @@
     <section id="homeSection" class="flexi-section">
       <h1>Runes <br/> Memory Game</h1>
       <div id="levelOptions" class="row">
-        <button class="btn-level" id="btnLevelEasy">Mundane</button>
-        <button class="btn-level" id="btnLevelMedium">Avarage</button>
-        <button class="btn-level" id="btnLevelHard">Ambitious</button>
+        <button class="btn-level btn_selected" data-level="easy">Mundane</button>
+        <button class="btn-level" data-level="medium">Avarage</button>
+        <button class="btn-level" data-level="hard">Ambitious</button>
       </div>
       <div id="levelAction" class="row">
         <button class="btn-level-action btn-resume">Resume</button>
