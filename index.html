@@ -22,5 +22,91 @@
 </head>
 
 <body>
+  <main>
+    <!-- HOME PAGE: select game difficulty and start or resume game -->
+    <section id="homeSection" class="flexi-section">
+      <h1>Runes <br/> Memory Game</h1>
+      <div id="levelOptions" class="row">
+        <button class="btn-level" id="btnLevelEasy">Mundane</button>
+        <button class="btn-level" id="btnLevelMedium">Avarage</button>
+        <button class="btn-level" id="btnLevelHard">Ambitious</button>
+      </div>
+      <div id="levelAction" class="row">
+        <button class="btn-level-action btn-resume">Resume</button>
+        <button class="btn-level-action btn-start">New Game</button>
+      </div>
+    </section>
+
+    <!-- GAME PAGE: uncover two cards at the time to find a match until the whole grid is uncovered -->
+    <section id="gameSection" class="flexi-section">
+      <div id="gameHeader" class="row">
+        <div id="gameLevelDescription" class="col">Level </div>
+        <div id="gameTimeElapsed" class="col"></div>
+        <div id="gameActions" class="col">
+          <button class="btn-level-action btn-reset"><i class="fas fa-redo mirror"></i></button>
+          <button class="btn-level-action btn-home"><i class="fas fa-home"></i></button>
+        </div>
+      </div>
+      <div id="gameContainer" class="row">
+        <div id="gameGrid"></div>
+      </div>
+    </section>
+
+    <!-- GAME RESULT PAGE: find out how you did -->
+    <section id="gameResultSection" class="flexi-section">
+      <span id="gameResultIcon" class=""></span>
+      <h1 id="gameResultText"></h1>
+      <h2 id="gameTotalTime">Total time:</h2>
+      <div id="levelAction" class="row">
+        <div class="col">
+          <button class="btn-level-action btn-reset"></button>
+          <span>Restart Game</span>
+        </div>
+        <div class="col">
+          <button class="btn-level-action btn-levelup"></button>
+          <span>Level Up</span>
+        </div>
+        <div class="col">
+          <button class="btn-level-action btn-home"></button>
+          <span>Home</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER: get in touch with the creator of this game -->
+    <footer>
+      <div class="row">
+        <a href="#" target="_self" title="Home page for course examples">
+          <img src="images/logo_v1.svg" title="Michela Federico Logo" class="logo">
+        </a>
+      </div>
+      <div class="row">
+        <div class="social-link">
+          <a href="https://github.com/federicomichela/MemoryGame" title="View source for this page on GitHub" id="viewSource"><i class="fab fa-github-alt"></i></a>
+        </div>
+        <div class="social-link">
+          <a href="https://jsfiddle.net/user/irith/fiddles/" target="_blank" title="gplus"><i class="fab fa-jsfiddle"></i></a>
+        </div>
+        <div class="social-link">
+          <a href="https://www.linkedin.com/in/michela-federico/" target="_blank" title="gplus"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <div class="social-link">
+          <a href="https://twitter.com/MichelaFederico" target="_blank" title="twitter"><i class="fab fa-twitter"></i></a>
+        </div>
+        <div class="social-link">
+          <a href="https://www.facebook.com/federico.michela" target="_blank" title="facebook"><i class="fab fa-facebook-f"></i></a>
+        </div>
+        <div class="social-link">
+          <a href="https://www.instagram.com/michela.zakir/" target="_blank" title="instagram"><i class="fab fa-instagram"></i></a>
+        </div>
+        <div class="social-link">
+          <a href="mailto:federico.michela@gmail.com" target="_blank" title="instagram"><i class="far fa-paper-plane"></i></a>
+        </div>
+      </div>
+      <div class="row">
+        Made by me &nbsp;<i class="far fa-copyright mirror"></i>&nbsp;2019
+      </div>
+    </footer>
+  </main>
 </body>
 </html>

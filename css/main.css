@@ -1,0 +1,65 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+a { text-decoration: none; }
+a:focus { outline: 0px; }
+
+body {
+  font-family: 'Raleway', sans-serif;
+  font-weight: normal;
+  font-size: 12px;
+  color: #424242;
+  background-color: #eceeef;
+  text-align: center;
+}
+
+footer {
+  width: 100%;
+  padding: 30px 20px;
+  background-color: #333;
+  color: #eceeef;
+  text-align: center;
+  font-size: 1.5em;
+  display: flex;
+  flex-wrap: wrap;
+}
+footer .social-link {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #68c7c1;
+  border-radius: 50%;
+  margin: 5px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+footer a { color: #68c7c1; }
+footer img { width: 100px; }
+
+.mirror { transform: scale(-1, 1); }
+
+.flexi-section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.row {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 10px;
+}
+
+#gameSection,
+#gameResultSection,
+#btnResume { display: none; }
