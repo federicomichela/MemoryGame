@@ -12,42 +12,61 @@ function resizeSections() {
 	{
 		section.style.cssText = style;
 	}
+
+	if (window.innerWidth >= 768 && gameMatch) {
+		resizeCards();
+	}
+}
+
+/*
+ * Method to resize cards to fit within the grid at all times
+ */
+function resizeCards() {
+	let gridSize = gameMatch.getGridSize();
+	let grid = document.getElementById("gameGrid");
+	let width = grid.offsetWidth/gridSize.cols - 2; // -2 === border width
+	let height = grid.offsetHeight/gridSize.rows - 2; // -2 === border width
+	let styleText = `width: ${width}px; height: ${height}px;`;
+
+	for (let card of document.querySelectorAll(".card-container")) {
+		card.style.cssText = styleText;
+	}
 }
 
 /*
  * Show home page section (hide all the others)
  */
 function showHome() {
-		document.getElementById("homeSection").style.display = "flex";
-		document.getElementById("gameSection").style.display = "none";
-		document.getElementById("gameResultSection").style.display = "none";
+	document.getElementById("homeSection").classList.remove("hidden");
+	document.getElementById("gameSection").classList.add("hidden");
+	document.getElementById("gameResultSection").classList.add("hidden");
 
-		addHomeListeners();
-		removeGameListeners();
+	addHomeListeners();
+	removeGameListeners();
 }
 
 /*
  * Show game section (hide all the others)
  */
 function showGame() {
-		document.getElementById("homeSection").style.display = "none";
-		document.getElementById("gameSection").style.display = "flex";
-		document.getElementById("gameResultSection").style.display = "none";
+	document.getElementById("homeSection").classList.add("hidden");
+	document.getElementById("gameSection").classList.remove("hidden");
+	document.getElementById("gameResultSection").classList.add("hidden");
 
-		removeHomeListeners();
-		addGameListeners();
+	removeHomeListeners();
+	addGameListeners();
 }
 
 /*
  * Show game result section (hide all the others)
  */
 function showGameResult() {
-		document.getElementById("homeSection").style.display = "none";
-		document.getElementById("gameSection").style.display = "none";
-		document.getElementById("gameResultSection").style.display = "flex";
+	document.getElementById("homeSection").classList.add("hidden");
+	document.getElementById("gameSection").classList.add("hidden");
+	document.getElementById("gameResultSection").classList.remove("hidden");
 
-		removeHomeListeners();
-		removeGameListeners();
+	removeHomeListeners();
+	removeGameListeners();
 }
 
 /*

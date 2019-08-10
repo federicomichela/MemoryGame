@@ -44,11 +44,14 @@ footer img { width: 100px; }
 
 .mirror { transform: scale(-1, 1); }
 
-.flexi-section {
+section.flexi-section {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+}
+section.flexi-section.hidden {
+  display: none;
 }
 
 .row {
@@ -64,10 +67,6 @@ button.btn_selected {
   border: 1px solid red;
 }
 
-#gameSection,
-#gameResultSection,
-#btnResume { display: none; }
-
 #gameSection {
   align-content: flex-start;
 }
@@ -76,8 +75,8 @@ button.btn_selected {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 456px;
-  height: 456px;
+  width: 310px;
+  height: 310px;
   border: 1px solid blue;
 }
 #gameGrid .row {
@@ -102,4 +101,11 @@ button.btn_selected {
 }
 #gameGrid .card-container .card.card_covered .card-symbol {
   display: none;
+}
+
+@media screen and (min-width: 768px) {
+  #gameGrid {
+    width: 520px;
+    height: 520px;
+  }
 }
