@@ -14,29 +14,43 @@ class MemoryGame {
     this._timeElapsed = 0;
     this._numberOfSymbols = (Math.pow(GAME_LEVELS[this._level], 2) / 2);
     this._gameGrid = [];
-    this._symbolsInUse= [];
+    this._gridRows = GAME_LEVELS[this._level];
+    this._gridCols = GAME_LEVELS[this._level];
 
     this.initGrid();
   }
 
   initGrid() {
+    let symbolsInUse = [];
+    let gridSymbols = []
+
     // pick symbols
     for (let symbol, i=0; i<this._numberOfSymbols; i++) {
       // make sure we don't use the same symbol for multiple couples
       do {
         symbol = getRandomInt(RUNES_UNICODES.start, RUNES_UNICODES.end+1);
-      } while (this._symbolsInUse.indexOf(symbol) > -1);
+      } while (symbolsInUse.indexOf(symbol) > -1);
 
-      this._symbolsInUse.push(symbol);
-      this._gameGrid.push(symbol, symbol);
+      symbolsInUse.push(symbol);
+      gridSymbols.push(symbol, symbol);
     }
 
     // shuffle grid
-    this._gameGrid.shuffle();
+    gridSymbols.shuffle();
+
+    for (let i=0; i<gridSymbols.length; i+=this._gridCols) {
+        let rowSymbols = gridSymbols.slice(i, i+this._gridCols);
+
+        this._gameGrid.push(rowSymbols);
+    }
   }
 
-  flip() {
-    console.log("flipping card");
+  cover(row, col) {
+    console.log(`covering card [${row}, ${col}]`);
+  }
+
+  uncover(row, col) {
+    console.log(`uncovering card [${row}, ${col}]`);
   }
 
   matchingPair() {
@@ -56,19 +70,10 @@ class MemoryGame {
   }
 
   getGridSize() {
-    return { "rows": GAME_LEVELS[this._level], "cols": GAME_LEVELS[this._level] };
+    return { "rows": this._gridRows, "cols": this._gridCols };
   }
 
   getGridSymbols() {
-    let gridSymbols = [];
-    let gridSize = this.getGridSize();
-
-    for (let i=0; i<this._gameGrid.length; i+=gridSize.cols) {
-        let rowSymbols = this._gameGrid.slice(i, i+gridSize.cols);
-
-        gridSymbols.push(rowSymbols);
-    }
-
-    return gridSymbols;
+    return this._gameGrid;
   }
 }

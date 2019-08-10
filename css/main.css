@@ -85,15 +85,21 @@ button.btn_selected {
   justify-content: space-around;
   width: 100%;
 }
-#gameGrid .card {
-  border: 1px solid red;
+#gameGrid .card-container,
+#gameGrid .card-container .card {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-#gameGrid .card.card-covered {
+#gameGrid .card-container .card {
+  width: 90%;
+  height: 90%;
+  border-radius: 30%;
+  border: 1px solid black;
+}
+#gameGrid .card-container .card.card_covered {
   background-color: black;
 }
-#gameGrid .card.card-covered .card-symbol {
+#gameGrid .card-container .card.card_covered .card-symbol {
   display: none;
 }

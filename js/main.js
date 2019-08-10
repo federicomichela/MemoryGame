@@ -53,8 +53,9 @@ function showGameResult() {
 /*
  * Helper method: creates a card element in the DOM which contains a card-symbol span
  */
-function createCard(width, height, symbol) {
+function createCard(width, height, symbol, row, col) {
 	let styleText = `width: ${width}px; height: ${height}px;`;
+	let cardContainer = document.createElement("div");
 	let card = document.createElement("div");
 	let span = document.createElement("span");
 
@@ -62,11 +63,17 @@ function createCard(width, height, symbol) {
 	span.innerText = String.fromCharCode(symbol);
 
 	card.classList.add("card", "card_covered");
-	card.style.cssText = styleText;
+
+	card.dataset.row = row;
+	card.dataset.col = col;
 
 	card.appendChild(span);
 
-	return card;
+	cardContainer.classList.add("card-container");
+	cardContainer.style.cssText = styleText;
+	cardContainer.appendChild(card);
+
+	return cardContainer;
 }
 
 /*
@@ -91,7 +98,7 @@ function createBoard() {
 
 	  for (let col=0; col<gridSize.cols; col++)
 	  {
-			let card = createCard(cellWidth, cellHeight, gridSymbols[row][col]);
+			let card = createCard(cellWidth, cellHeight, gridSymbols[row][col], row, col);
 
 			gridRow.appendChild(card);
 	  }
@@ -128,11 +135,40 @@ function selectLevel(event) {
 	}
 }
 
+function flipCard(event) {
+	let target;
+	let action;
+
+	if (event.target.classList.contains("card_covered")) {
+		target = event.target;
+		action = "uncover";
+	}
+	else if (event.target.parentElement.classList.contains("card_covered")) {
+		target = event.target.parent;
+		action = "uncover";
+	}
+	else if (event.target.classList.contains("card_uncovered")) {
+		target = event.target;
+		action = "cover";
+	}
+	else if (event.target.parentElement.classList.contains("card_uncovered")) {
+		target = event.target.parent;
+		action = "cover";
+	}
+
+	if (target) {
+		target.classList.toggle("card_covered");
+		target.classList.toggle("card_uncovered");
+		gameMatch[action](target.dataset.row, target.dataset.col);
+	}
+}
+
 /*
  * Listen to a click event on each card in the grid in order to flip the card
  */
 function addGameListeners() {
 	// TODO: add listener to card click
+	document.getElementById("gameGrid").addEventListener("click", flipCard);
 }
 
 /*
