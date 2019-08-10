@@ -54,12 +54,46 @@ footer img { width: 100px; }
 .row {
   width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
   padding: 20px 10px;
 }
 
+button.btn_selected {
+  border: 1px solid red;
+}
+
 #gameSection,
 #gameResultSection,
 #btnResume { display: none; }
+
+#gameSection {
+  align-content: flex-start;
+}
+
+#gameGrid {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 456px;
+  height: 456px;
+  border: 1px solid blue;
+}
+#gameGrid .row {
+  padding: 0;
+  justify-content: space-around;
+  width: 100%;
+}
+#gameGrid .card {
+  border: 1px solid red;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#gameGrid .card.card-covered {
+  background-color: black;
+}
+#gameGrid .card.card-covered .card-symbol {
+  display: none;
+}

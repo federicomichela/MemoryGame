@@ -33,19 +33,6 @@ class MemoryGame {
 
     // shuffle grid
     this._gameGrid.shuffle();
-
-    // add grid into the DOM
-    this._drawGrid();
-  }
-
-  /**
-   * Create DOM elements for each card in the grid.
-   * NOTE: the cards have to be covered at the beginning.
-   *
-   * @private
-   */
-  _drawGrid() {
-    console.log("drawing grid...");
   }
 
   flip() {
@@ -66,5 +53,22 @@ class MemoryGame {
 
   endGame() {
     console.log("game completed");
+  }
+
+  getGridSize() {
+    return { "rows": GAME_LEVELS[this._level], "cols": GAME_LEVELS[this._level] };
+  }
+
+  getGridSymbols() {
+    let gridSymbols = [];
+    let gridSize = this.getGridSize();
+
+    for (let i=0; i<this._gameGrid.length; i+=gridSize.cols) {
+        let rowSymbols = this._gameGrid.slice(i, i+gridSize.cols);
+
+        gridSymbols.push(rowSymbols);
+    }
+
+    return gridSymbols;
   }
 }
