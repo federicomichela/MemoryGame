@@ -39,7 +39,10 @@ function resizeCards() {
 function showHome() {
 	document.getElementById("homeSection").classList.remove("hidden");
 	document.getElementById("gameSection").classList.add("hidden");
-	document.getElementById("gameResultSection").classList.add("hidden");
+
+	if (!document.getElementById("gameResultSection").classList.contains("hidden")) {
+		dismissGameResult();
+	}
 
 	addHomeListeners();
 	removeGameListeners();
@@ -51,22 +54,34 @@ function showHome() {
 function showGame() {
 	document.getElementById("homeSection").classList.add("hidden");
 	document.getElementById("gameSection").classList.remove("hidden");
-	document.getElementById("gameResultSection").classList.add("hidden");
+
+	if (!document.getElementById("gameResultSection").classList.contains("hidden")) {
+		dismissGameResult();
+	}
 
 	removeHomeListeners();
 	addGameListeners();
 }
 
 /*
- * Show game result section (hide all the others)
+ * Show game result "dialog"
  */
 function showGameResult() {
-	document.getElementById("homeSection").classList.add("hidden");
-	document.getElementById("gameSection").classList.add("hidden");
 	document.getElementById("gameResultSection").classList.remove("hidden");
+
+	// to simulate a real dialog prevent page scrolling by hiding overflow
+	document.querySelector("html").style.overflow = "hidden";
 
 	removeHomeListeners();
 	removeGameListeners();
+}
+
+function dismissGameResult() {
+	document.getElementById("gameResultSection").classList.add("hidden");
+
+	// re-enable overflow on page
+	document.querySelector("html").style.overflow = "auto";
+
 }
 
 /*
@@ -213,7 +228,7 @@ function onActionResultReceived(result) {
 			}
 
 			if (result.completed) {
-				setTimeout(() => { alert("GAME COMPLETED!"); }, 1000);
+				setTimeout(showGameResult, 1000);
 			}
 
 			break;
