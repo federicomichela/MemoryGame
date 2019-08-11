@@ -1,9 +1,8 @@
-let gameMatch;
+let gameMatch, clockID;
 
 /*
  * Method to resize the game pages to match the whole window resize
  */
-
 function resizeSections() {
 	let sections = document.getElementsByClassName("flexi-section");
 	let style = `width: ${window.innerWidth}px; height: ${window.innerHeight}px;`;
@@ -67,25 +66,56 @@ function showGame() {
  * Show game result "dialog"
  */
 function showGameResult() {
+	if (!gameMatch.gameCompleted()) { return; }
+
 	document.getElementById("gameResultSection").classList.remove("hidden");
 
 	// to simulate a real dialog prevent page scrolling by hiding overflow
 	document.querySelector("html").style.overflow = "hidden";
 
+	// update dialog with game results
+	document.getElementById("gameTotalTime").innerText = `Total time: ${gameMatch.getElapsedTime()}`;
+
+	// update stars rating
+	let rating = gameMatch.getStarRating();
+	let starRate = 100 / MAX_STARS;
+	for (let star of document.querySelectorAll(".star")) {
+		if (rating - starRate > 0) {
+			star.querySelector(".star-inner").style.width = "100%";
+			rating -= starRate;
+		} else if (rating > 0) {
+			let starPerc = (100 * rating) / starRate;
+			star.querySelector(".star-inner").style.width = `${starPerc}%`;
+			rating -= starRate;
+		} else {
+			star.querySelector(".star-inner").style.width = "0%";
+		}
+	}
+
 	removeHomeListeners();
 	removeGameListeners();
+	addGameResultListeners();
 }
 
+/*
+ * Hide game result dialog
+ */
 function dismissGameResult() {
 	document.getElementById("gameResultSection").classList.add("hidden");
 
 	// re-enable overflow on page
 	document.querySelector("html").style.overflow = "auto";
 
+	removeGameResultListeners();
 }
 
 /*
  * Helper method: creates a card element in the DOM which contains a card-symbol span
+ * @param width {Number}
+ * @param height {Number}
+ * @param symbol {Number}
+ * @param row {Number}
+ * @param col {Number}
  */
 function createCard(width, height, symbol, row, col) {
 	let styleText = `width: ${width}px; height: ${height}px;`;
@@ -140,21 +170,60 @@ function createBoard() {
 }
 
 /*
- * Show the game section and start playing
+ * Update the level and start clock in the game page
  */
-function startGame(event) {
-	let levelSelected = document.querySelector(".btn-level.btn_selected").dataset.level;
+function updateGameInfos() {
+	clearInterval(clockID);
+	clockID = setInterval(() => {
+		document.getElementById("gameTimeElapsed").innerText = gameMatch.getElapsedTime();
+	}, 1000);
 
-	if (gameMatch)
-	{
-		delete gameMatch;
-	}
-	gameMatch = new MemoryGame(levelSelected);
+	document.getElementById("gameLevelDescription").innerText = `Level ${gameMatch.getLevel()}`;
+}
+
+/*
+ * Start a new game on a specified level
+ * @param level {Number}
+ */
+function initialiseGame(level) {
+	gameMatch = new MemoryGame(level);
 
 	showGame();
 	createBoard();
+	updateGameInfos();
 }
 
+/*
+ * Start a new game from the selected level
+ */
+function startGame() {
+	let levelSelected = document.querySelector(".btn-level.btn_selected").dataset.level;
+
+	initialiseGame(levelSelected);
+}
+
+/*
+ * Start a new game from the current game level
+ */
+function resetGame() {
+	let level = gameMatch.getLevel();
+
+	initialiseGame(level);
+}
+
+/*
+ * Reset to a new game with higher level
+ */
+function levelUp() {
+	let nextLevel = parseInt(gameMatch.getLevel()) + 1;
+
+	initialiseGame(nextLevel);
+}
+
+/*
+ * Event callback method to select a level
+ * @param event {Object}
+ */
 function selectLevel(event) {
 	if (event.target.classList.contains("btn-level")) {
 		// remove selection from currently selected button
@@ -167,6 +236,10 @@ function selectLevel(event) {
 	}
 }
 
+/*
+ * Event callback method to flip a card
+ * @param event {Object}
+ */
 function flipCard(event) {
 	let target;
 	let action;
@@ -203,6 +276,11 @@ function flipCard(event) {
 	}
 }
 
+/*
+ * Callback method to update the DOM based on the result returned by flipping
+ * a card.
+ * @param result {Object}
+ */
 function onActionResultReceived(result) {
 	switch (result.action) {
 		case GAME_ACTIONS.retry:
@@ -228,6 +306,9 @@ function onActionResultReceived(result) {
 			}
 
 			if (result.completed) {
+				// stop clock on game page
+				clearInterval(clockID);
+
 				setTimeout(showGameResult, 1000);
 			}
 
@@ -236,20 +317,6 @@ function onActionResultReceived(result) {
 			addGameListeners();
 			break;
 	}
-}
-
-/*
- * Listen to a click event on each card in the grid in order to flip the card
- */
-function addGameListeners() {
-	document.getElementById("gameGrid").addEventListener("click", flipCard);
-}
-
-/*
- * Stop listening to the interactions on the cards
- */
-function removeGameListeners() {
-	document.getElementById("gameGrid").removeEventListener("click", flipCard);
 }
 
 /*
@@ -270,13 +337,47 @@ function removeHomeListeners() {
 }
 
 /*
+ * Listen to a click event on each card in the grid in order to flip the card
+ */
+function addGameListeners() {
+	document.getElementById("gameGrid").addEventListener("click", flipCard);
+}
+
+/*
+ * Stop listening to the interactions on the cards
+ */
+function removeGameListeners() {
+	document.getElementById("gameGrid").removeEventListener("click", flipCard);
+}
+
+/*
+ * Listen to a click even on the level up button
+ */
+function addGameResultListeners() {
+	document.querySelector("#gameResultSection .dialog .btn-levelup").addEventListener("click", levelUp);
+}
+
+
+/*
+ * Stop listening to the level up button click
+ */
+function removeGameResultListeners() {
+	document.querySelector("#gameResultSection .dialog .btn-levelup").removeEventListener("click", levelUp);
+}
+
+/*
  * Listen to a click event on all the buttons in the pages
  */
 function addNavigationListeners() {
 	// when a start or reset button is clicked, initialise a new game with the selected level
-	let newGameButtons = document.querySelectorAll(".btn-start, .btn-reset");
-	for (let btn of newGameButtons) {
+	let startGameButtons = document.querySelectorAll(".btn-start");
+	for (let btn of startGameButtons) {
 		btn.addEventListener("click", startGame);
+	}
+
+	let resetGameButtons = document.querySelectorAll(".btn-reset");
+	for (let btn of resetGameButtons) {
+		btn.addEventListener("click", resetGame);
 	}
 
 	// when an home button is clicked, show the home section

@@ -1,14 +1,17 @@
 class MemoryGame {
 	constructor (level) {
-		this._level = level || "easy";
-		this._numberOfPairs = (Math.pow(GAME_LEVELS[this._level], 2) / 2);
-		this._gridRows = GAME_LEVELS[this._level];
-		this._gridCols = GAME_LEVELS[this._level];
+		level = level.toString();
+
+		this._level = Object.keys(GAME_LEVELS).indexOf(level) > -1 ? level : "0";
+		this._gridSize = GRID_SIZE_BY_LEVEL[GAME_LEVELS[this._level]];
+		this._numberOfPairs = (Math.pow(this._gridSize, 2) / 2);
 		this._gameGrid = [];
 		this._startTime = new Date();
 		this._stopTime = null;
-		this._moves = 0;
-		this._starRating = MAX_STARS;
+		this._wrongMoves = 0;
+		this._wrongMovesThreshold = this._numberOfPairs * 2;
+		this._mistakeRatingEffect = 100 / this._wrongMovesThreshold;
+		this._starRating = 100;
 		this._pair = [];
 		this._uncoveredSymbols = [];
 
@@ -33,8 +36,8 @@ class MemoryGame {
 		// shuffle grid
 		gridSymbols.shuffle();
 
-		for (let i=0; i<gridSymbols.length; i+=this._gridCols) {
-				let rowSymbols = gridSymbols.slice(i, i+this._gridCols);
+		for (let i=0; i<gridSymbols.length; i+=this._gridSize) {
+				let rowSymbols = gridSymbols.slice(i, i+this._gridSize);
 
 				this._gameGrid.push(rowSymbols);
 		}
@@ -55,12 +58,10 @@ class MemoryGame {
 				result.action = GAME_ACTIONS.match;
 				this._onMatchUncovered(true, symbol);
 
-				if (this._gameCompleted()) {
+				if (this.gameCompleted()) {
 					this._endGame();
 
 					result.completed = true;
-					result.totalTime = this.getElapsedTime();
-					result.starRating = this._starRating;
 				}
 			} else {
 				result.action = GAME_ACTIONS.retry;
@@ -79,25 +80,28 @@ class MemoryGame {
 
 	_onMatchUncovered(matchFound, symbol) {
 		this._pair = [];
-		this._moves++;
-		this._starRating = (this._moves * MAX_STARS) / this._numberOfPairs;
 
-		if (matchFound)
-		{
+		if (matchFound) {
 			this._uncoveredSymbols.push(symbol);
-		}
-	}
+		} else {
+			this._wrongMoves++;
 
-	_gameCompleted() {
-		return this._uncoveredSymbols.length === this._numberOfPairs;
+			if (this._wrongMoves > this._wrongMovesThreshold) {
+				this._starRating =	100 - ((this._wrongMoves - this._wrongMovesThreshold) * this._mistakeRatingEffect);
+			}
+		}
 	}
 
 	_endGame() {
 		this._stopTime = new Date();
 	}
 
+	gameCompleted() {
+		return this._uncoveredSymbols.length === this._numberOfPairs;
+	}
+
 	getGridSize() {
-		return { "rows": this._gridRows, "cols": this._gridCols };
+		return { "rows": this._gridSize, "cols": this._gridSize };
 	}
 
 	getGridSymbols() {
@@ -108,11 +112,19 @@ class MemoryGame {
 		return this._gameGrid[row][col];
 	}
 
+	getLevel() {
+		return this._level;
+	}
+
 	getElapsedTime() {
 		let endTime = this._stopTime ? this._stopTime : new Date();
 		let msElapsed = endTime - this._startTime;
 		let formattedElapsedTime = formatTimeToString(msElapsed);
 
 		return formattedElapsedTime;
+	}
+
+	getStarRating() {
+		return this._starRating;
 	}
 }

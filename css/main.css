@@ -54,6 +54,13 @@ section.flexi-section.hidden {
   display: none !important;
 }
 
+.col {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .row {
   width: 100%;
   display: flex;
@@ -98,7 +105,7 @@ button.btn_selected {
 }
 #gameGrid .card-container .card .card-symbol {
     pointer-events: none;
-    font-size: 5em;
+    font-size: 3vw;
 }
 #gameGrid .card-container .card.card_covered {
   background-color: black;
@@ -121,7 +128,35 @@ button.btn_selected {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap;
+    flex-direction: column;
+    padding: 30px;
+}
+#gameStarRating {
+    margin-top: 10px;
+}
+#nextAction { justify-content: space-evenly; }
+#nextAction span,
+#nextAction button { padding: 10px 5px; }
+#nextAction button {
+    width: 100px;
+    height: 100px;
+    font-size: 2em;
+}
+
+.star {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 50px;
+}
+
+.star-outer { position: relative; }
+.star-inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow:hidden;
 }
 
 @media screen and (min-width: 768px) {
