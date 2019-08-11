@@ -96,12 +96,15 @@ button.btn_selected {
   border-radius: 30%;
   border: 1px solid black;
 }
+#gameGrid .card-container .card .card-symbol {
+    pointer-events: none;
+    font-size: 5em;
+}
 #gameGrid .card-container .card.card_covered {
   background-color: black;
 }
-#gameGrid .card-container .card.card_covered .card-symbol {
-  display: none;
-}
+#gameGrid .card-container .card.card_covered .card-symbol { display: none; }
+#gameGrid .card-container .card.card_matched { border: 1px solid green; }
 
 @media screen and (min-width: 768px) {
   #gameGrid {

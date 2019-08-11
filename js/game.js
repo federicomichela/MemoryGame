@@ -1,16 +1,3 @@
-const GAME_LEVELS = {
-	"easy": 2,
-	"medium": 4,
-	"hard": 8
-};
-const RUNES_UNICODES = {
-	"start": 5792,
-	"end": 5873
-};
-const GAME_ACTIONS = {"wait", "match", "retry", "completed"};
-const MAX_STARS = 5;
-
-
 class MemoryGame {
 	constructor (level) {
 		this._level = level || "easy";
@@ -59,26 +46,28 @@ class MemoryGame {
 
 	uncover(row, col) {
 		let symbol = this._gameGrid[row][col];
-		let result;
+		let result = { "pair": this._pair };
 
 		this._pair.push({row, col, symbol});
 
 		if (this._pair.length === 2) {
 			if (this._matchingPair()) {
+				result.action = GAME_ACTIONS.match;
+				this._onMatchUncovered(true, symbol);
+
 				if (this._gameCompleted()) {
-					result = GAME_ACTIONS.completed;
 					this._endGame();
-				}
-				else {
-					result.action = GAME_ACTIONS.match;
-					this._onMatchUncovered(true, symbol);
+
+					result.completed = true;
+					result.totalTime = this.getElapsedTime();
+					result.starRating = this._starRating;
 				}
 			} else {
 				result.action = GAME_ACTIONS.retry;
 				this._onMatchUncovered(false);
 			}
 		} else {
-			result = GAME_ACTIONS.wait;
+			result.action = GAME_ACTIONS.wait;
 		}
 
 		return result;
@@ -115,8 +104,8 @@ class MemoryGame {
 		return this._gameGrid;
 	}
 
-	getStarRating() {
-		return this._starRating;
+	getSymbol(row, col) {
+		return this._gameGrid[row][col];
 	}
 
 	getElapsedTime() {

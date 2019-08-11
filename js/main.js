@@ -79,8 +79,6 @@ function createCard(width, height, symbol, row, col) {
 	let span = document.createElement("span");
 
 	span.classList.add("card-symbol");
-	span.innerText = String.fromCharCode(symbol);
-
 	card.classList.add("card", "card_covered");
 
 	card.dataset.row = row;
@@ -162,23 +160,66 @@ function flipCard(event) {
 		target = event.target;
 		action = "uncover";
 	}
-	else if (event.target.parentElement.classList.contains("card_covered")) {
-		target = event.target.parent;
-		action = "uncover";
-	}
 	else if (event.target.classList.contains("card_uncovered")) {
-		target = event.target;
-		action = "cover";
-	}
-	else if (event.target.parentElement.classList.contains("card_uncovered")) {
-		target = event.target.parent;
-		action = "cover";
+		if (event.target.classList.contains("card_matched")) {
+			// TODO: shake effect
+		} else {
+			target = event.target;
+			action = "cover";
+		}
 	}
 
 	if (target) {
+		let symbol = String.fromCharCode(gameMatch.getSymbol(target.dataset.row, target.dataset.col));
+
+		target.querySelector(`.card-symbol`).innerText = symbol;
+
 		target.classList.toggle("card_covered");
 		target.classList.toggle("card_uncovered");
-		gameMatch[action](target.dataset.row, target.dataset.col);
+
+		if (action === "uncover") {
+			let actionResult = gameMatch.uncover(target.dataset.row, target.dataset.col);
+
+			removeGameListeners();
+			onActionResultReceived(actionResult);
+		} else {
+			gameMatch.cover();
+		}
+	}
+}
+
+function onActionResultReceived(result) {
+	switch (result.action) {
+		case GAME_ACTIONS.retry:
+			for (card of result.pair) {
+				let cardDiv = document.querySelector(`.card[data-col="${card.col}"][data-row="${card.row}"]`);
+
+				setTimeout( () => {
+					cardDiv.classList.remove("card_uncovered");
+					cardDiv.classList.add("card_covered")
+					cardDiv.querySelector(".card-symbol").innerText = "";
+					addGameListeners();
+				}, 750 );
+			}
+			break;
+		case GAME_ACTIONS.match:
+			for (card of result.pair) {
+				let cardDiv = document.querySelector(`.card[data-row="${card.row}"][data-col="${card.col}"]`);
+
+				setTimeout( () => {
+					cardDiv.classList.add("card_matched");
+					addGameListeners();
+				}, 750 );
+			}
+
+			if (result.completed) {
+				setTimeout(() => { alert("GAME COMPLETED!"); }, 1000);
+			}
+
+			break;
+		case GAME_ACTIONS.wait:
+			addGameListeners();
+			break;
 	}
 }
 
@@ -186,7 +227,6 @@ function flipCard(event) {
  * Listen to a click event on each card in the grid in order to flip the card
  */
 function addGameListeners() {
-	// TODO: add listener to card click
 	document.getElementById("gameGrid").addEventListener("click", flipCard);
 }
 
@@ -194,7 +234,7 @@ function addGameListeners() {
  * Stop listening to the interactions on the cards
  */
 function removeGameListeners() {
-	// TODO: remove listener to card click
+	document.getElementById("gameGrid").removeEventListener("click", flipCard);
 }
 
 /*
