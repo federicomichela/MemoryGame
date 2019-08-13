@@ -113,11 +113,10 @@ function dismissGameResult() {
  * Helper method: creates a card element in the DOM which contains a card-symbol span
  * @param width {Number}
  * @param height {Number}
- * @param symbol {Number}
  * @param row {Number}
  * @param col {Number}
  */
-function createCard(width, height, symbol, row, col) {
+function createCard(width, height, row, col) {
 	let styleText = `width: ${width}px; height: ${height}px;`;
 	let cardContainer = document.createElement("div");
 	let card = document.createElement("div");
@@ -148,7 +147,6 @@ function createBoard() {
 	let containerHeight = container.offsetHeight;
 	let cellWidth = containerWidth/gridSize.cols - 2; // -2 === border width
 	let cellHeight = containerHeight/gridSize.rows - 2; // -2 === border width
-	let gridSymbols = gameMatch.getGridSymbols();
 
 	container.innerHTML = "";
 
@@ -160,7 +158,7 @@ function createBoard() {
 
 	  for (let col=0; col<gridSize.cols; col++)
 	  {
-			let card = createCard(cellWidth, cellHeight, gridSymbols[row][col], row, col);
+			let card = createCard(cellWidth, cellHeight, row, col);
 
 			gridRow.appendChild(card);
 	  }
