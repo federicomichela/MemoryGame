@@ -27,6 +27,7 @@ footer {
   font-size: 1.5em;
   display: flex;
   flex-wrap: wrap;
+  bottom: 0;
 }
 footer .social-link {
   width: 40px;
@@ -82,8 +83,8 @@ button.btn_selected {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  width: 310px;
-  height: 310px;
+  width: 350px;
+  height: 350px;
   border: 1px solid blue;
 }
 #gameGrid .row {
@@ -103,15 +104,14 @@ button.btn_selected {
   border-radius: 30%;
   border: 1px solid black;
 }
-#gameGrid .card-container .card .card-symbol {
-    pointer-events: none;
-    font-size: 3vw;
-}
-#gameGrid .card-container .card.card_covered {
-  background-color: black;
-}
+#gameGrid .card-container .card.card_covered { background-color: black; }
 #gameGrid .card-container .card.card_covered .card-symbol { display: none; }
 #gameGrid .card-container .card.card_matched { border: 1px solid green; }
+#gameGrid .card-container .card .card-symbol { pointer-events: none; }
+
+.game-grid--level-0 .card-container .card .card-symbol { font-size: 6em; }
+.game-grid--level-1 .card-container .card .card-symbol { font-size: 4em; }
+.game-grid--level-2 .card-container .card .card-symbol { font-size: 1.7em; }
 
 #gameResultSection {
     background-color: rgba(3,3,3,0.5);

@@ -49,8 +49,8 @@ class MemoryGame {
 
  /**
   * Flip a card to cover it again.
-	* NOTE: this action will be considered as a 'wrong move' and
-	* will have impact on the star rating
+  * NOTE: this action will be considered as a 'wrong move' and
+  * will have impact on the star rating
   */
 	cover() {
 		this._onMatchUncovered(false);
@@ -58,8 +58,8 @@ class MemoryGame {
 
  /**
   * Flip a card to uncover it.
-	* If a card was already uncovered, checks if the two match,
-	* in which case checks if the game is completed.
+  * If a card was already uncovered, checks if the two match,
+  * in which case checks if the game is completed.
   *
   * @param {type} row Description
   * @param {type} col Description
@@ -104,11 +104,12 @@ class MemoryGame {
 
  /**
   * Method to update the state of the game.
-	* If a matching pair has been uncovered, store the uncovered symbol,
-	* otherwise update the number of _wrongMoves and the _starRating
+  * If a matching pair has been uncovered, store the uncovered symbol,
+  * otherwise update the number of _wrongMoves and the _starRating
   *
   * @param {Boolean} matchFound
   * @param {Number} symbol unicode representation of a symbol character
+  * @private
   */
 	_onMatchUncovered(matchFound, symbol) {
 		this._pair = [];
@@ -127,6 +128,7 @@ class MemoryGame {
  /**
   * Once the game is completed, saves the current time to mark the end of the game
   *
+  * @private
   * @returns {type} Description
   */
 	_endGame() {
@@ -176,9 +178,9 @@ class MemoryGame {
 
  /**
   * Method to get the time passed from the start of the game.
-	* If the game is completed will always return the total time of the game.
+  * If the game is completed will always return the total time of the game.
   * NOTE: this method returns a nicely formatted string as "(dd::)hh:mm:ss"
-	*
+  *
   * @returns {String}
   */
 	getElapsedTime() {
@@ -191,10 +193,10 @@ class MemoryGame {
 
  /**
   * Method to get the start rating of the game.
-	* NOTE: the star rating is a Percentage calculated basing on the number
-	* of wrong moves and the maximum number of wrong moves allowed.
-	* Whenever the player exceeds the number of available wrong moves,
-	* the star rating will start to decrease
+  * NOTE: the star rating is a Percentage calculated basing on the number
+  * of wrong moves and the maximum number of wrong moves allowed.
+  * Whenever the player exceeds the number of available wrong moves,
+  * the star rating will start to decrease
   *
   * @returns {Number} Percentage of star rating
   */
