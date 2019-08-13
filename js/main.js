@@ -5,7 +5,7 @@ let gameMatch, clockID;
  */
 function resizeSections() {
 	let sections = document.getElementsByClassName("flexi-section");
-	let style = `width: ${window.innerWidth}px; height: ${window.innerHeight}px;`;
+	let style = `width: ${window.innerWidth}px; min-height: ${window.innerHeight}px;`;
 
 	for (let section of sections)
 	{
@@ -92,6 +92,7 @@ function showGameResult() {
 		}
 	}
 
+	disableResumeButtons();
 	removeHomeListeners();
 	removeGameListeners();
 	addGameResultListeners();
@@ -186,6 +187,24 @@ function updateGameInfos() {
 	document.getElementById("gameLevelDescription").innerText = `Level ${gameMatch.getLevel()}`;
 }
 
+/**
+ * Make resume buttons available
+ */
+function enableResumeButtons() {
+	for (let btn of document.querySelectorAll(".btn-resume")) {
+		btn.classList.remove("hidden");
+	}
+}
+
+/**
+ * Make resume buttons unavailable
+ */
+function disableResumeButtons() {
+	for (let btn of document.querySelectorAll(".btn-resume")) {
+		btn.classList.add("hidden");
+	}
+}
+
 /*
  * Start a new game on a specified level
  * @param level {Number}
@@ -193,6 +212,7 @@ function updateGameInfos() {
 function initialiseGame(level) {
 	gameMatch = new MemoryGame(level);
 
+	enableResumeButtons();
 	showGame();
 	createBoard();
 	updateGameInfos();

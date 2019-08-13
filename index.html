@@ -27,82 +27,97 @@
   <main>
     <!-- HOME PAGE: select game difficulty and start or resume game -->
     <section id="homeSection" class="flexi-section">
-      <h1>Runes <br/> Memory Game</h1>
-      <div id="levelOptions" class="row">
-        <button class="btn-level btn_selected" data-level="0">Mundane</button>
-        <button class="btn-level" data-level="1">Avarage</button>
-        <button class="btn-level" data-level="2">Ambitious</button>
-      </div>
-      <div id="levelAction" class="row">
-        <button class="btn-resume">Resume</button>
-        <button class="btn-start">New Game</button>
+        <div class="container">
+          <h1>Runes <br/> Memory Game</h1>
+          <div id="levelOptions" class="row">
+            <button class="btn-level btn_selected" data-level="0">
+                <span>2x2</span>
+                <span>Mundane</span>
+            </button>
+            <button class="btn-level" data-level="1">
+                <span>4x4</span>
+                <span>Avarage</span>
+            </button>
+            <button class="btn-level" data-level="2">
+                <span>8x8</span>
+                <span>Ambitious</span>
+            </button>
+          </div>
+          <div id="levelAction" class="row">
+            <button class="btn-resume hidden">Resume</button>
+            <button class="btn-start">New Game</button>
+          </div>
       </div>
     </section>
 
     <!-- GAME PAGE: uncover two cards at the time to find a match until the whole grid is uncovered -->
     <section id="gameSection" class="flexi-section hidden">
-      <div id="gameHeader" class="row">
-        <div id="gameLevelDescription"></div>
-        <div id="gameTimeElapsed"></div>
-        <div id="gameActions">
-          <button class="btn-reset"><i class="fas fa-redo mirror"></i></button>
-          <button class="btn-home"><i class="fas fa-home"></i></button>
-        </div>
-      </div>
-      <div id="gameContainer" class="row">
-        <div id="gameGrid"></div>
+        <div class="container">
+          <div id="gameHeader" class="row">
+            <div id="gameLevelDescription"></div>
+            <div id="gameTimeElapsed"></div>
+            <div id="gameActions">
+              <button class="btn-reset"><i class="fas fa-redo mirror"></i></button>
+              <button class="btn-home"><i class="fas fa-home"></i></button>
+            </div>
+          </div>
+          <div id="gameContainer" class="row">
+            <div id="gameGrid"></div>
+          </div>
       </div>
     </section>
 
     <!-- GAME RESULT PAGE: find out how you did -->
     <section id="gameResultSection" class="flexi-section hidden">
-        <div class="dialog">
-        <div id="gameStarRating" class="row">
-                <div class="star">
-                    <span class="star-outer far fa-star">
-                        <span class="star-inner fas fa-star"></span>
-                    </span>
-                </div>
+        <div class="container">
+            <div class="dialog">
+                <div id="gameStarRating" class="row">
+                    <div class="star">
+                        <span class="star-outer far fa-star">
+                            <span class="star-inner fas fa-star"></span>
+                        </span>
+                    </div>
 
-                <div class="star">
-                    <span class="star-outer far fa-star">
-                        <span class="star-inner fas fa-star"></span>
-                    </span>
-                </div>
+                    <div class="star">
+                        <span class="star-outer far fa-star">
+                            <span class="star-inner fas fa-star"></span>
+                        </span>
+                    </div>
 
-                <div class="star">
-                    <span class="star-outer far fa-star">
-                        <span class="star-inner fas fa-star"></span>
-                    </span>
-                </div>
+                    <div class="star">
+                        <span class="star-outer far fa-star">
+                            <span class="star-inner fas fa-star"></span>
+                        </span>
+                    </div>
 
-                <div class="star">
-                    <span class="star-outer far fa-star">
-                        <span class="star-inner fas fa-star"></span>
-                    </span>
-                </div>
+                    <div class="star">
+                        <span class="star-outer far fa-star">
+                            <span class="star-inner fas fa-star"></span>
+                        </span>
+                    </div>
 
-                <div class="star">
-                    <span class="star-outer far fa-star">
-                        <span class="star-inner fas fa-star"></span>
-                    </span>
+                    <div class="star">
+                        <span class="star-outer far fa-star">
+                            <span class="star-inner fas fa-star"></span>
+                        </span>
+                    </div>
                 </div>
-            </div>
-            <h1 id="gameResultText">Level Completed!</h1>
-            <h3 id="gameTotalTime"></h3>
-            <div id="nextAction" class="row">
-              <div class="col">
-                <button class="btn-reset"><i class="fas fa-redo mirror"></i></button>
-                <span>Restart Game</span>
-              </div>
-              <div class="col">
-                <button class="btn-levelup"><i class="fas fa-level-up-alt"></i></button>
-                <span>Level Up</span>
-              </div>
-              <div class="col">
-                <button class="btn-home"><i class="fas fa-home"></i></button>
-                <span>Home</span>
-              </div>
+                <h1 id="gameResultText">Level Completed!</h1>
+                <h3 id="gameTotalTime"></h3>
+                <div id="nextAction" class="row">
+                  <div class="col">
+                    <button class="btn-reset"><i class="fas fa-redo mirror"></i></button>
+                    <span>Restart Game</span>
+                  </div>
+                  <div class="col">
+                    <button class="btn-levelup"><i class="fas fa-level-up-alt"></i></button>
+                    <span>Level Up</span>
+                  </div>
+                  <div class="col">
+                    <button class="btn-home"><i class="fas fa-home"></i></button>
+                    <span>Home</span>
+                  </div>
+                </div>
             </div>
         </div>
     </section>
