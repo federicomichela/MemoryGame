@@ -397,7 +397,10 @@ function addNavigationListeners() {
 	// when a start or reset button is clicked, initialise a new game with the selected level
 	let startGameButtons = document.querySelectorAll(".btn-start");
 	for (let btn of startGameButtons) {
-		btn.addEventListener("click", startGame);
+		btn.addEventListener("click", (event) => {
+			event.target.classList.add("loading");
+			setTimeout(startGame.bind(this, event), 3000);
+		});
 	}
 
 	let resetGameButtons = document.querySelectorAll(".btn-reset");
