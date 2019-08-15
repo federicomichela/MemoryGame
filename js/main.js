@@ -222,7 +222,7 @@ function initialiseGame(level) {
  * Start a new game from the selected level
  */
 function startGame() {
-	let levelSelected = document.querySelector(".btn-level.btn_selected").dataset.level;
+	let levelSelected = document.querySelector(".btn-level.selected").dataset.level;
 
 	initialiseGame(levelSelected);
 }
@@ -252,12 +252,12 @@ function levelUp() {
 function selectLevel(event) {
 	if (event.target.classList.contains("btn-level")) {
 		// remove selection from currently selected button
-		let currentlySelectedButton = document.querySelector(".btn-level.btn_selected");
+		let currentlySelectedButton = document.querySelector(".btn-level.selected");
 		if (currentlySelectedButton) {
-			currentlySelectedButton.classList.remove("btn_selected")
+			currentlySelectedButton.classList.remove("selected")
 		}
 		// add selection to the button that has just been clicked
-		event.target.classList.add("btn_selected");
+		event.target.classList.add("selected");
 	}
 }
 
