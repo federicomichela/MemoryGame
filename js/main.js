@@ -225,6 +225,10 @@ function startGame() {
 	let levelSelected = document.querySelector(".btn-level.selected").dataset.level;
 
 	initialiseGame(levelSelected);
+
+	for (let loadingElement of document.querySelectorAll(".loading")) {
+		loadingElement.classList.remove("loading");
+	}
 }
 
 /*
@@ -399,7 +403,7 @@ function addNavigationListeners() {
 	for (let btn of startGameButtons) {
 		btn.addEventListener("click", (event) => {
 			event.target.classList.add("loading");
-			setTimeout(startGame.bind(this, event), 3000);
+			setTimeout(startGame.bind(this, event), 1000);
 		});
 	}
 

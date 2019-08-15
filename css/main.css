@@ -75,6 +75,10 @@ button {
 	border-radius: 20px;
 	color: #7f6a6a;
 }
+button:focus,
+button:active,
+button:hover,
+button:visited { outline: 0; }
 
 button span { pointer-events: none; }
 
@@ -265,14 +269,6 @@ button.btn-start.loading > img { filter: contrast(0.1); }
 	transform-style: preserve-3d;
 	transform-origin: center right;
 	transition: transform 1s;
-}
-.flip:focus,
-.flip:active,
-.flip:hover,
-.flip:visited {
-	border: 0;
-	box-shadow: none;
-	outline: 0;
 }
 
 .flip.selected {
