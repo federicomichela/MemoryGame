@@ -127,7 +127,6 @@ button.btn-start > span {
 	font-size: 2em;
 	color: #2a0808;
 	position: relative;
-	z-index: 1;
 	transition: all 1s ease;
 }
 button.btn-start:before {
