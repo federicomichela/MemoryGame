@@ -14,6 +14,7 @@ body {
 	background-color: #eceeef;
 	text-align: center;
 }
+body.full-screen { overflow: hidden; }
 
 a { text-decoration: none; }
 a:focus { outline: 0px; }
@@ -54,12 +55,12 @@ section.flexi-section {
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
+	width: 100%;
 }
 
 section .container {
 	width: 100%;
 	height: 100%;
-	position: absolute;
 }
 
 

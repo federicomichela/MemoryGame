@@ -5,7 +5,7 @@ let gameMatch, clockID;
  */
 function resizeSections() {
 	let sections = document.getElementsByClassName("flexi-section");
-	let style = `width: ${window.innerWidth}px; min-height: ${window.innerHeight}px;`;
+	let style = `min-height: ${window.innerHeight}px;`;
 
 	for (let section of sections)
 	{
@@ -71,7 +71,7 @@ function showGameResult() {
 	document.getElementById("gameResultSection").classList.remove("hidden");
 
 	// to simulate a real dialog prevent page scrolling by hiding overflow
-	document.querySelector("html").style.overflow = "hidden";
+	document.querySelector("body").classList.add("full-screen");
 
 	// update dialog with game results
 	document.getElementById("gameTotalTime").innerText = `Total time: ${gameMatch.getElapsedTime()}`;
@@ -105,7 +105,7 @@ function dismissGameResult() {
 	document.getElementById("gameResultSection").classList.add("hidden");
 
 	// re-enable overflow on page
-	document.querySelector("html").style.overflow = "auto";
+	document.querySelector("body").classList.remove("full-screen");
 
 	removeGameResultListeners();
 }
