@@ -1,57 +1,3 @@
-@font-face {
-	font-family: 'dalekregular';
-	src: url('../fonts/dalek/dalek___-webfont.woff2') format('woff2'),
-		 url('../fonts/dalek/dalek___-webfont.woff') format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-@font-face {
-    font-family: 'runesx';
-    src: url('../fonts/anglosaxonRunes/anglosaxon_runes-1-webfont.woff2') format('woff2'),
-         url('../fonts/anglosaxonRunes/anglosaxon_runes-1-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'runesxx';
-    src: url('../fonts/anglosaxonRunes/anglosaxon_runes-2-webfont.woff2') format('woff2'),
-         url('../fonts/anglosaxonRunes/anglosaxon_runes-2-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'mediaeval';
-    src: url('../fonts/medieval/pfeffermediaeval-n3ev-webfont.woff2') format('woff2'),
-         url('../fonts/medieval/pfeffermediaeval-n3ev-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'runes';
-    src: url('../fonts/runes/alfabet_-webfont.woff2') format('woff2'),
-         url('../fonts/runes/alfabet_-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-@font-face {
-    font-family: 'odins_spear';
-    src: url('../fonts/odins-spear/odins_spear-webfont.woff2') format('woff2'),
-         url('../fonts/odins-spear/odins_spear-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-@font-face {
-    font-family: 'odins_spear_hollowRg';
-    src: url('../fonts/odins-spear/odins_spear_ragged_hollow-webfont.woff2') format('woff2'),
-         url('../fonts/odins-spear/odins_spear_ragged_hollow-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-
-}
-
 body,
 html {
 	margin: 0;
@@ -68,6 +14,7 @@ body {
 	background-color: #eceeef;
 	text-align: center;
 }
+body.full-screen { overflow: hidden; }
 
 a { text-decoration: none; }
 a:focus { outline: 0px; }
@@ -108,52 +55,95 @@ section.flexi-section {
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
+	width: 100%;
 }
 
 section .container {
 	width: 100%;
 	height: 100%;
-	position: absolute;
+}
+
+
+.btn-wrapper > span {
+	font-size: 1.4em;
+	font-family: "mediaeval";
 }
 
 button {
 	padding: 5px;
 	margin: 10px;
-	border: 1px solid #2a0808;
+	border: 2px solid #bfb4b4;
 	border-radius: 20px;
+	color: #7f6a6a;
 }
+button:focus,
+button:active,
+button:hover,
+button:visited { outline: 0; }
 
 button span { pointer-events: none; }
 
-button.btn_selected {
-	color: #e1ddd1;
-	background-color: #2a0808;
-}
-
 button.btn-level {
-	width: 90px;
-    height: 90px;
+	width: 120px;
+    height: 120px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+	justify-content: center;
+	border: 0px;
+	border-radius: 100%;
+    background-color: transparent;
 }
-button.btn-level span:nth-child(1) {
-	font-size: 3.9em;
+button.btn-level div {
+	line-height: 120px;
+	border-radius: 100%;
+}
+button.btn-level div:nth-child(1) {
 	font-family: "odins_spear_hollowRg";
+	font-size: 4.5em;
+	background-color: #d4cdcd;
 }
-button.btn-level span:nth-child(2) {
-	font-size: 1.1em;
-	font-family: "mediaeval";
-	line-height: 0;
+button.btn-level div:nth-child(2) {
+	font-size: 1.5em;
+	background-color: #2a0808;
 }
+button.btn-level.btn_selected span:nth-child(1) { display: none; }
+button.btn-level.btn_selected span:nth-child(2) { display: block; }
 
 button.btn-start {
-	width: 150px;
-	height: 50px;
-	font-family: "mediaeval";
-	line-height: 0;
-	font-size: 2em;
+	padding: 10px;
+	font-family: "viking-normalregular";
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #d4cdcd;
+	box-shadow: 5px 5px 5px;
+	transition: all 1s ease;
+	position: relative;
+	overflow: hidden;
 }
+button.btn-start > span {
+	font-size: 2em;
+	color: #2a0808;
+	position: relative;
+	transition: all 1s ease;
+}
+button.btn-start:before {
+	content: "";
+	width: 0%;
+	height: 100%;
+	background-color: #3f2020;
+	position: absolute;
+	transition: all 1s ease;
+	left: 0px;
+}
+button.btn-start.loading:before {
+	width: 100%;
+	left: 0px;
+}
+button.btn-start.loading > span { color: #d4cdcd; }
+button.btn-start > img { margin: 0 15px; }
+button.btn-start.loading > img { filter: contrast(0.1); }
 
 .hidden {
 	display: none !important;
@@ -270,7 +260,29 @@ button.btn-start {
 	overflow:hidden;
 }
 
-@media screen and (min-width: 425px) and (max-screen: 768px) {
+/******************************************************************************
+ * Flip animation by https://codepen.io/desandro/pen/LmWozd
+ ******************************************************************************/
+.flip {
+	transform-style: preserve-3d;
+	transform-origin: center right;
+	transition: transform 1s;
+}
+
+.flip.selected {
+  transform: translateX(-100%) rotateY(-180deg);
+}
+.flip-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  pointer-events: none;
+}
+.flip-face-front {}
+.flip-face-back { transform: rotateY(180deg); }
+
+@media screen and (min-width: 425px) and (max-width: 768px) {
 	#gameResultSection .dialog { width: 80%; }
 }
 

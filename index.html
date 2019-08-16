@@ -13,6 +13,7 @@
 
   <title>Runes Memory Game</title>
 
+  <link rel="stylesheet" href="css/fonts.css" />
   <link rel="stylesheet" href="css/main.css" />
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Audiowide|Montserrat|Montserrat+Alternates|Abril+Fatface|Raleway:300,400,500,600,700,800&display=swap" rel="stylesheet">
@@ -30,22 +31,26 @@
         <div class="container">
           <h1>Runes <br/> Memory Game</h1>
           <div id="levelOptions" class="row">
-            <button class="btn-level btn_selected" data-level="0">
-                <span>2x2</span>
-                <span>Mundane</span>
+            <button class="btn-level selected flip" data-level="0">
+                <div class="flip-face flip-face-front">2x2</div>
+                <div class="flip-face flip-face-back">Mundane</div>
             </button>
-            <button class="btn-level" data-level="1">
-                <span>4x4</span>
-                <span>Avarage</span>
+            <button class="btn-level flip" data-level="1">
+                <div class="flip-face flip-face-front">4x4</div>
+                <div class="flip-face flip-face-back">Avarage</div>
             </button>
-            <button class="btn-level" data-level="2">
-                <span>8x8</span>
-                <span>Ambitious</span>
+            <button class="btn-level flip" data-level="2">
+                <div class="flip-face flip-face-front">8x8</div>
+                <div class="flip-face flip-face-back">Ambitious</div>
             </button>
           </div>
           <div id="levelAction" class="row">
             <button class="btn-resume hidden">Resume</button>
-            <button class="btn-start">New Game</button>
+            <button class="btn-start">
+                <img src="images/celticTribal.png" width="70px">
+                <span>New Game</span>
+                <img src="images/celticTribal.png" width="70px">
+            </button>
           </div>
       </div>
     </section>
@@ -70,7 +75,10 @@
     <!-- GAME RESULT PAGE: find out how you did -->
     <section id="gameResultSection" class="flexi-section hidden">
         <div class="dialog">
+<<<<<<< HEAD
             <h1 id="gameResultText">Level Completed!</h1>
+=======
+>>>>>>> 3dd0c77b7f64137c8b75c5deea09b08149b093a9
             <div id="gameStarRating" class="row">
                 <div class="star">
                     <span class="star-outer far fa-star">
@@ -102,6 +110,10 @@
                     </span>
                 </div>
             </div>
+<<<<<<< HEAD
+=======
+            <h1 id="gameResultText">Level Completed!</h1>
+>>>>>>> 3dd0c77b7f64137c8b75c5deea09b08149b093a9
             <h3 id="gameTotalTime"></h3>
             <div id="nextAction" class="row">
               <div class="col">

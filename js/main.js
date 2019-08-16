@@ -5,7 +5,7 @@ let gameMatch, clockID;
  */
 function resizeSections() {
 	let sections = document.getElementsByClassName("flexi-section");
-	let style = `width: ${window.innerWidth}px; min-height: ${window.innerHeight}px;`;
+	let style = `min-height: ${window.innerHeight}px;`;
 
 	for (let section of sections)
 	{
@@ -71,7 +71,7 @@ function showGameResult() {
 	document.getElementById("gameResultSection").classList.remove("hidden");
 
 	// to simulate a real dialog prevent page scrolling by hiding overflow
-	document.querySelector("html").style.overflow = "hidden";
+	document.querySelector("body").classList.add("full-screen");
 
 	// update dialog with game results
 	document.getElementById("gameTotalTime").innerText = `Total time: ${gameMatch.getElapsedTime()}`;
@@ -105,7 +105,7 @@ function dismissGameResult() {
 	document.getElementById("gameResultSection").classList.add("hidden");
 
 	// re-enable overflow on page
-	document.querySelector("html").style.overflow = "auto";
+	document.querySelector("body").classList.remove("full-screen");
 
 	removeGameResultListeners();
 }
@@ -222,9 +222,13 @@ function initialiseGame(level) {
  * Start a new game from the selected level
  */
 function startGame() {
-	let levelSelected = document.querySelector(".btn-level.btn_selected").dataset.level;
+	let levelSelected = document.querySelector(".btn-level.selected").dataset.level;
 
 	initialiseGame(levelSelected);
+
+	for (let loadingElement of document.querySelectorAll(".loading")) {
+		loadingElement.classList.remove("loading");
+	}
 }
 
 /*
@@ -252,12 +256,12 @@ function levelUp() {
 function selectLevel(event) {
 	if (event.target.classList.contains("btn-level")) {
 		// remove selection from currently selected button
-		let currentlySelectedButton = document.querySelector(".btn-level.btn_selected");
+		let currentlySelectedButton = document.querySelector(".btn-level.selected");
 		if (currentlySelectedButton) {
-			currentlySelectedButton.classList.remove("btn_selected")
+			currentlySelectedButton.classList.remove("selected")
 		}
 		// add selection to the button that has just been clicked
-		event.target.classList.add("btn_selected");
+		event.target.classList.add("selected");
 	}
 }
 
@@ -397,7 +401,10 @@ function addNavigationListeners() {
 	// when a start or reset button is clicked, initialise a new game with the selected level
 	let startGameButtons = document.querySelectorAll(".btn-start");
 	for (let btn of startGameButtons) {
-		btn.addEventListener("click", startGame);
+		btn.addEventListener("click", (event) => {
+			event.target.classList.add("loading");
+			setTimeout(startGame.bind(this, event), 1000);
+		});
 	}
 
 	let resetGameButtons = document.querySelectorAll(".btn-reset");

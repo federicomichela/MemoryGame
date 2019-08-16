@@ -1,0 +1,36 @@
+@font-face {
+	font-family: 'dalekregular';
+	src: url('../fonts/dalek/dalek___-webfont.woff2') format('woff2'),
+		 url('../fonts/dalek/dalek___-webfont.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+    font-family: 'runes';
+    src: url('../fonts/runes/alfabet_-webfont.woff2') format('woff2'),
+         url('../fonts/runes/alfabet_-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'odins_spear';
+    src: url('../fonts/odins-spear/odins_spear-webfont.woff2') format('woff2'),
+         url('../fonts/odins-spear/odins_spear-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'odins_spear_hollowRg';
+    src: url('../fonts/odins-spear/odins_spear_ragged_hollow-webfont.woff2') format('woff2'),
+         url('../fonts/odins-spear/odins_spear_ragged_hollow-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'viking-normalregular';
+    src: url('../fonts/viking/viking-normal-webfont.woff2') format('woff2'),
+         url('../fonts/viking/viking-normal-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+	line-height: 0;
+}
