@@ -10,10 +10,10 @@ function formatTimeToString(ms) {
     let minutes = Math.round(seconds / 60) % 60;
     let hours = Math.round(minutes / 60) % 24;
     let days = Math.round(hours/24);
-    let formattedTime = `${hours}h : ${minutes}m : ${seconds}s`;
+    let formattedTime = `${hours}h ${minutes}m ${seconds}s`;
 
     if (days) {
-        formattedTime = `${days}d : ${formattedTime}`;
+        formattedTime = `${days}d ${formattedTime}`;
     }
 
     return formattedTime;

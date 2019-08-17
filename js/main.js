@@ -348,13 +348,23 @@ function onActionResultReceived(result) {
 	}
 }
 
+/**
+ * Add loading class to clicked button then show the game page
+ *
+ * @param {Object} event
+ */
+function loadGame(event) {
+	event.target.classList.add("loading");
+	setTimeout(startGame.bind(this, event), 1000);
+}
+
 /*
  * Listen to a click event on the level buttons to select it.
  * Also listen to the resume button to go back to the game without restarting it.
  */
 function addHomeListeners() {
 	document.getElementById("levelOptions").addEventListener("click", selectLevel);
-	document.querySelector(".btn-resume").addEventListener("click", showGame);
+	document.querySelector(".btn-resume").addEventListener("click", loadGame);
 }
 
 /*
@@ -362,7 +372,7 @@ function addHomeListeners() {
  */
 function removeHomeListeners() {
 	document.getElementById("levelOptions").removeEventListener("click", selectLevel);
-	document.querySelector(".btn-resume").removeEventListener("click", showGame);
+	document.querySelector(".btn-resume").removeEventListener("click", loadGame);
 }
 
 /*
@@ -401,10 +411,7 @@ function addNavigationListeners() {
 	// when a start or reset button is clicked, initialise a new game with the selected level
 	let startGameButtons = document.querySelectorAll(".btn-start");
 	for (let btn of startGameButtons) {
-		btn.addEventListener("click", (event) => {
-			event.target.classList.add("loading");
-			setTimeout(startGame.bind(this, event), 1000);
-		});
+		btn.addEventListener("click", loadGame);
 	}
 
 	let resetGameButtons = document.querySelectorAll(".btn-reset");

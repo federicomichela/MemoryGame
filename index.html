@@ -29,28 +29,24 @@
             <!-- HOME PAGE: select game difficulty and start or resume game -->
             <section id="homeSection" class="flexi-section">
                 <div class="container">
-                    <h1>Runes Memory Game</h1>
+                    <h1>Runes</h1>
                     <div id="levelOptions" class="row">
-                        <button class="btn-level selected flip" data-level="0">
+                        <button class="btn-level selected flip flip-vertical" data-level="0">
                             <div class="flip-face flip-face-front">2x2</div>
                             <div class="flip-face flip-face-back">Mundane</div>
                         </button>
-                        <button class="btn-level flip" data-level="1">
+                        <button class="btn-level flip flip-vertical" data-level="1">
                             <div class="flip-face flip-face-front">4x4</div>
                             <div class="flip-face flip-face-back">Average</div>
                         </button>
-                        <button class="btn-level flip" data-level="2">
+                        <button class="btn-level flip flip-vertical" data-level="2">
                             <div class="flip-face flip-face-front">8x8</div>
                             <div class="flip-face flip-face-back">Ambitious</div>
                         </button>
                     </div>
                     <div id="levelAction" class="row">
-                        <button class="btn-resume hidden">Resume</button>
-                        <button class="btn-start">
-                            <img src="images/celticTribal.png" width="70px">
-                            <span>New Game</span>
-                            <img src="images/celticTribal.png" width="70px">
-                        </button>
+                        <button class="btn-resume hidden"><span>Resume</span></button>
+                        <button class="btn-start"><span>New Game</span></button>
                     </div>
                 </div>
             </section>
@@ -106,7 +102,7 @@
                             </span>
                         </div>
                     </div>
-                    <h1 id="gameResultText">Level Completed!</h1>
+                    <h2 id="gameResultText">Level Complete!</h2>
                     <h3 id="gameTotalTime"></h3>
                     <div id="nextAction" class="row">
                         <div class="col">
