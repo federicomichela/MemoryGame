@@ -21,7 +21,9 @@ a:focus { outline: 0px; }
 
 h1 {
 	font-family: "dalekregular";
-	font-size: 5em;
+	font-size: 3.5em;
+	margin: 0;
+	padding: 0 50px;
 }
 
 footer {
@@ -123,7 +125,7 @@ button.btn-start {
 	overflow: hidden;
 }
 button.btn-start > span {
-	font-size: 2em;
+	font-size: 1.5em;
 	color: #2a0808;
 	position: relative;
 	transition: all 1s ease;
@@ -168,12 +170,11 @@ button.btn-start.loading > img { filter: contrast(0.1); }
 #homeSection .container {
 	display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 #homeSection .row {
 	justify-content: space-evenly;
 	padding: 0px;
-	margin: 20px 0;
 }
 
 #gameSection {

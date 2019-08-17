@@ -5,7 +5,7 @@ let gameMatch, clockID;
  */
 function resizeSections() {
 	let sections = document.getElementsByClassName("flexi-section");
-	let style = `min-height: ${window.innerHeight}px;`;
+	let style = `height: ${window.innerHeight}px;`;
 
 	for (let section of sections)
 	{
