@@ -273,29 +273,29 @@ function selectLevel(event) {
  * @param event {Object}
  */
 function flipCard(event) {
-	let target;
+	let target = event.target;
+	let card;
 	let action;
 
-	if (event.target.classList.contains("card_covered")) {
-		target = event.target;
+	if (target.classList.contains("card")) {
+		card = target;
 		action = "uncover";
-	}
-	else if (event.target.classList.contains("card_uncovered")) {
-		if (event.target.classList.contains("card_matched")) {
-			// TODO: shake effect
-		} else {
-			target = event.target;
-			action = "cover";
+
+		if (card.classList.contains("selected")) {
+			if (card.classList.contains("card_matched")) {
+				// TODO: match effect
+			} else {
+				// TODO: shake effect
+				action = "cover";
+			}
 		}
 	}
 
-	if (target) {
+	if (card) {
 		let symbol = String.fromCharCode(gameMatch.getSymbol(target.dataset.row, target.dataset.col));
 
 		target.querySelector(`.card-symbol`).innerText = symbol;
 
-		target.classList.toggle("card_covered");
-		target.classList.toggle("card_uncovered");
 		target.classList.toggle("selected");
 
 		if (action === "uncover") {
@@ -321,8 +321,7 @@ function onActionResultReceived(result) {
 				let cardDiv = document.querySelector(`.card[data-col="${card.col}"][data-row="${card.row}"]`);
 
 				setTimeout( () => {
-					cardDiv.classList.remove("card_uncovered");
-					cardDiv.classList.add("card_covered")
+					cardDiv.classList.toggle("selected");
 					cardDiv.querySelector(".card-symbol").innerText = "";
 					addGameListeners();
 				}, 750 );

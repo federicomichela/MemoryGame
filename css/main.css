@@ -184,6 +184,7 @@ button.btn-resume.loading > span { color: #d4cdcd; }
 }
 
 
+#gameContainer { height: calc(100% - 173px); }
 
 #gameSection {
 	align-content: flex-start;
