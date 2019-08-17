@@ -3,7 +3,7 @@ class MemoryGame {
 		level = level.toString();
 
 		this._level = Object.keys(GAME_LEVELS).indexOf(level) > -1 ? level : "0";
-		this._gridSize = GRID_SIZE_BY_LEVEL[GAME_LEVELS[this._level]];
+		this._gridSize = GRID_SIZE_BY_LEVEL[this._level];
 		this._numberOfPairs = (Math.pow(this._gridSize, 2) / 2);
 		this._gameGrid = [];
 		this._startTime = new Date();

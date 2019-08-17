@@ -1,13 +1,13 @@
 const GAME_LEVELS = {
-	0: "easy",
-	1: "medium",
-	2: "hard"
+	0: "Mundane",
+	1: "Average",
+	2: "Ambitious"
 };
 
 const GRID_SIZE_BY_LEVEL = {
-    "easy": 2,
-    "medium": 4,
-    "hard": 8
+    0: 2,
+    1: 4,
+    2: 8
 }
 
 const RUNES_UNICODES = {

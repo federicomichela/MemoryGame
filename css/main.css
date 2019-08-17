@@ -171,6 +171,8 @@ button.btn-resume.loading > span { color: #d4cdcd; }
 	padding: 20px 0px;
 }
 
+
+
 #homeSection .container {
 	display: flex;
     flex-direction: column;
@@ -181,23 +183,45 @@ button.btn-resume.loading > span { color: #d4cdcd; }
 	padding: 0px;
 }
 
+
+
 #gameSection {
 	align-content: flex-start;
+	color: #7f6a6a;
 }
-#gameContainer { height: calc(100% - 100px); }
+
+#gameHeader {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	font-size: 1em;
+}
+
+#gameActions > button {
+	background-color: transparent;
+	border: 0;
+	border-radius: 0;
+	font-size: 1.5em;
+	color: #7f6a6a;
+	padding: 0;
+	margin: 0;
+}
+
+#gameTimeElapsed { font-size: 2em; }
+
 #gameGrid {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
 	width: 350px;
 	height: 350px;
-	border: 1px solid blue;
 }
 #gameGrid .row {
 	padding: 0;
 	justify-content: space-around;
 	width: 100%;
 }
+
 #gameGrid .card-container,
 #gameGrid .card-container .card {
 	display: flex;
@@ -207,17 +231,24 @@ button.btn-resume.loading > span { color: #d4cdcd; }
 #gameGrid .card-container .card {
 	width: 90%;
 	height: 90%;
-	border-radius: 30%;
-	border: 1px solid black;
 }
-#gameGrid .card-container .card.card_covered { background-color: black; }
-#gameGrid .card-container .card.card_covered .card-symbol { display: none; }
+#gameGrid .card-container .card > div {
+	border-radius: 30%;
+	display: flex;
+	flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#gameGrid .card-container .card div:nth-child(1) { background-color: #2a0808; }
+#gameGrid .card-container .card div:nth-child(2) { background-color: #d4cdcd; }
 #gameGrid .card-container .card.card_matched { border: 1px solid green; }
 #gameGrid .card-container .card .card-symbol { pointer-events: none; }
 
 .game-grid--level-0 .card-container .card .card-symbol { font-size: 6em; }
 .game-grid--level-1 .card-container .card .card-symbol { font-size: 4em; }
 .game-grid--level-2 .card-container .card .card-symbol { font-size: 1.7em; }
+
+
 
 #gameResultSection {
 	background-color: rgba(3,3,3,0.5);

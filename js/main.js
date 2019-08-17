@@ -111,7 +111,7 @@ function dismissGameResult() {
 }
 
 /*
- * Helper method: creates a card element in the DOM which contains a card-symbol span
+ * Helper method: creates a flippable card element in the DOM
  * @param width {Number}
  * @param height {Number}
  * @param row {Number}
@@ -121,15 +121,18 @@ function createCard(width, height, row, col) {
 	let styleText = `width: ${width}px; height: ${height}px;`;
 	let cardContainer = document.createElement("div");
 	let card = document.createElement("div");
-	let span = document.createElement("span");
+	let cardFront = document.createElement("div");
+	let cardBack = document.createElement("div");
 
-	span.classList.add("card-symbol");
-	card.classList.add("card", "card_covered");
+	cardFront.classList.add("flip-face", "flip-face-front");
+	cardBack.classList.add("card-symbol", "flip-face", "flip-face-back");
+	card.classList.add("card", "card_covered", "flip", "flip-horizontal");
 
 	card.dataset.row = row;
 	card.dataset.col = col;
 
-	card.appendChild(span);
+	card.appendChild(cardFront);
+	card.appendChild(cardBack);
 
 	cardContainer.classList.add("card-container");
 	cardContainer.style.cssText = styleText;
@@ -184,7 +187,7 @@ function updateGameInfos() {
 		document.getElementById("gameTimeElapsed").innerText = gameMatch.getElapsedTime();
 	}, 1000);
 
-	document.getElementById("gameLevelDescription").innerText = `Level ${gameMatch.getLevel()}`;
+	document.getElementById("gameLevelDescription").innerText = `Level ${GAME_LEVELS[gameMatch.getLevel()]}`;
 }
 
 /**
@@ -293,6 +296,7 @@ function flipCard(event) {
 
 		target.classList.toggle("card_covered");
 		target.classList.toggle("card_uncovered");
+		target.classList.toggle("selected");
 
 		if (action === "uncover") {
 			let actionResult = gameMatch.uncover(target.dataset.row, target.dataset.col);
