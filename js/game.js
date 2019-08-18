@@ -6,6 +6,7 @@ class MemoryGame {
 		this._gridSize = GRID_SIZE_BY_LEVEL[this._level];
 		this._numberOfPairs = (Math.pow(this._gridSize, 2) / 2);
 		this._gameGrid = [];
+		this._symbolsInUse = [];
 		this._startTime = new Date();
 		this._stopTime = null;
 		this._wrongMoves = 0;
@@ -19,21 +20,20 @@ class MemoryGame {
 	}
 
 
- /**
-  * Method to create a grid of randomly picked symbols
-  */
+	/**
+	* Method to create a grid of randomly picked symbols
+	*/
 	initGrid() {
-		let symbolsInUse = [];
-		let gridSymbols = []
+		let gridSymbols = [];
 
 		// pick symbols
 		for (let symbol, i=0; i<this._numberOfPairs; i++) {
 			// make sure we don't use the same symbol for multiple couples
 			do {
 				symbol = getRandomInt(RUNES_UNICODES.start, RUNES_UNICODES.end+1);
-			} while (symbolsInUse.indexOf(symbol) > -1);
+			} while (this._symbolsInUse.indexOf(symbol) > -1);
 
-			symbolsInUse.push(symbol);
+			this._symbolsInUse.push(symbol);
 			gridSymbols.push(symbol, symbol);
 		}
 
@@ -47,25 +47,35 @@ class MemoryGame {
 		}
 	}
 
- /**
-  * Flip a card to cover it again.
-  * NOTE: this action will be considered as a 'wrong move' and
-  * will have impact on the star rating
-  */
-	cover() {
-		this._onMatchUncovered(false);
+	/**
+	* Flip a card to cover it again.
+	* This action can be done only if it's the first card of a pair.
+	* NOTE: this action will be considered as a 'wrong move' and
+	* will have impact on the star rating
+	*/
+	cover(row, col) {
+		let coveredSymbol = this._gameGrid[row][col];
+
+		if (this._pair.length !== 2) {
+			this._uncoveredSymbols = this._uncoveredSymbols.filter((symbol) => {
+				return symbol && (symbol != coveredSymbol);
+			});
+
+			this._pair = [];
+			this._onMatchUncovered(false);
+		}
 	}
 
- /**
-  * Flip a card to uncover it.
-  * If a card was already uncovered, checks if the two match,
-  * in which case checks if the game is completed.
-  *
-  * @param {type} row Description
-  * @param {type} col Description
-  *
-  * @returns {type} Description
-  */
+	/**
+	* Flip a card to uncover it.
+	* If a card was already uncovered, checks if the two match,
+	* in which case checks if the game is completed.
+	*
+	* @param {type} row Description
+	* @param {type} col Description
+	*
+	* @returns {type} Description
+	*/
 	uncover(row, col) {
 		let symbol = this._gameGrid[row][col];
 		let result = { "pair": this._pair };
@@ -93,24 +103,24 @@ class MemoryGame {
 		return result;
 	}
 
- /**
-  * Method to check if the symbols of the uncovered cards match
-  *
-  * @returns {Boolean}
-  */
+	/**
+	* Method to check if the symbols of the uncovered cards match
+	*
+	* @returns {Boolean}
+	*/
 	_matchingPair() {
 		return this._pair[0].symbol === this._pair[1].symbol;
 	}
 
- /**
-  * Method to update the state of the game.
-  * If a matching pair has been uncovered, store the uncovered symbol,
-  * otherwise update the number of _wrongMoves and the _starRating
-  *
-  * @param {Boolean} matchFound
-  * @param {Number} symbol unicode representation of a symbol character
-  * @private
-  */
+	/**
+	* Method to update the state of the game.
+	* If a matching pair has been uncovered, store the uncovered symbol,
+	* otherwise update the number of _wrongMoves and the _starRating
+	*
+	* @param {Boolean} matchFound
+	* @param {Number} symbol unicode representation of a symbol character
+	* @private
+	*/
 	_onMatchUncovered(matchFound, symbol) {
 		this._pair = [];
 
@@ -125,64 +135,64 @@ class MemoryGame {
 		}
 	}
 
- /**
-  * Once the game is completed, saves the current time to mark the end of the game
-  *
-  * @private
-  * @returns {type} Description
-  */
+	/**
+	* Once the game is completed, saves the current time to mark the end of the game
+	*
+	* @private
+	* @returns {type} Description
+	*/
 	_endGame() {
 		this._stopTime = new Date();
 	}
 
- /**
-  * Method to check if all the symbols pairs have been uncovered
-  *
-  * @returns {Boolean}
-  */
+	/**
+	* Method to check if all the symbols pairs have been uncovered
+	*
+	* @returns {Boolean}
+	*/
 	gameCompleted() {
-		return this._uncoveredSymbols.length === this._numberOfPairs;
+		return this._symbolsInUse.every((symbol) => this._uncoveredSymbols.includes(symbol));
 	}
 
- /**
-  * Method to get the grid size.
+	/**
+	* Method to get the grid size.
 	* NOTE: this method has been built with the idea that the game could support
 	* custom number of rows and cols at some point
-  *
-  * @returns {Object}
-  */
+	*
+	* @returns {Object}
+	*/
 	getGridSize() {
 		return { "rows": this._gridSize, "cols": this._gridSize };
 	}
 
- /**
-  * Method to get the symbol at a specific position in the grid
-  *
-  * @param {Number} row
-  * @param {Number} col
-  *
-  * @returns {type} Description
-  */
+	/**
+	* Method to get the symbol at a specific position in the grid
+	*
+	* @param {Number} row
+	* @param {Number} col
+	*
+	* @returns {type} Description
+	*/
 	getSymbol(row, col) {
 		return this._gameGrid[row][col];
 	}
 
- /**
-  * Returns the level of the game
-  *
-  * @returns {Number} (for a list of available levels see GAME_LEVELS const)
-  */
+	/**
+	* Returns the level of the game
+	*
+	* @returns {Number} (for a list of available levels see GAME_LEVELS const)
+	*/
 	getLevel() {
 		return this._level;
 	}
 
- /**
-  * Method to get the time passed from the start of the game.
-  * If the game is completed will always return the total time of the game.
-  * NOTE: this method returns a nicely formatted string as "(dd::)hh:mm:ss"
-  *
-  * @returns {String}
-  */
+	/**
+	* Method to get the time passed from the start of the game.
+	* If the game is completed will always return the total time of the game.
+	* NOTE: this method returns a nicely formatted string as "(dd::)hh:mm:ss"
+	*
+	* @returns {String}
+	*/
 	getElapsedTime() {
 		let endTime = this._stopTime ? this._stopTime : new Date();
 		let msElapsed = endTime - this._startTime;
@@ -191,15 +201,15 @@ class MemoryGame {
 		return formattedElapsedTime;
 	}
 
- /**
-  * Method to get the start rating of the game.
-  * NOTE: the star rating is a Percentage calculated basing on the number
-  * of wrong moves and the maximum number of wrong moves allowed.
-  * Whenever the player exceeds the number of available wrong moves,
-  * the star rating will start to decrease
-  *
-  * @returns {Number} Percentage of star rating
-  */
+	/**
+	* Method to get the start rating of the game.
+	* NOTE: the star rating is a Percentage calculated basing on the number
+	* of wrong moves and the maximum number of wrong moves allowed.
+	* Whenever the player exceeds the number of available wrong moves,
+	* the star rating will start to decrease
+	*
+	* @returns {Number} Percentage of star rating
+	*/
 	getStarRating() {
 		return this._starRating;
 	}

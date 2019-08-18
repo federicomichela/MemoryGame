@@ -242,7 +242,6 @@ button.btn-resume.loading > span { color: #d4cdcd; }
 }
 #gameGrid .card-container .card div:nth-child(1) { background-color: #2a0808; }
 #gameGrid .card-container .card div:nth-child(2) { background-color: #d4cdcd; }
-#gameGrid .card-container .card.card_matched { border: 1px solid green; }
 #gameGrid .card-container .card .card-symbol { pointer-events: none; }
 
 .game-grid--level-0 .card-container .card .card-symbol { font-size: 6em; }

@@ -126,7 +126,7 @@ function createCard(width, height, row, col) {
 
 	cardFront.classList.add("flip-face", "flip-face-front");
 	cardBack.classList.add("card-symbol", "flip-face", "flip-face-back");
-	card.classList.add("card", "card_covered", "flip", "flip-horizontal");
+	card.classList.add("card", "flip", "flip-horizontal");
 
 	card.dataset.row = row;
 	card.dataset.col = col;
@@ -291,7 +291,7 @@ function flipCard(event) {
 		}
 	}
 
-	if (card) {
+	if (card && !card.classList.contains("card_matched")) {
 		let symbol = String.fromCharCode(gameMatch.getSymbol(target.dataset.row, target.dataset.col));
 
 		target.querySelector(`.card-symbol`).innerText = symbol;
@@ -304,7 +304,7 @@ function flipCard(event) {
 			removeGameListeners();
 			onActionResultReceived(actionResult);
 		} else {
-			gameMatch.cover();
+			gameMatch.cover(target.dataset.row, target.dataset.col);
 		}
 	}
 }
