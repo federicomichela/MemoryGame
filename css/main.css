@@ -111,8 +111,7 @@ button.btn-level div:nth-child(2) {
 	background-color: #2a0808;
 }
 
-button.btn-start,
-button.btn-resume {
+button.btn-full {
 	padding: 10px;
 	font-family: "viking-normalregular";
 	display: flex;
@@ -127,13 +126,12 @@ button.btn-resume {
 	color: #2a0808;
 	width: 100%;
 }
-button.btn-start > span,
-button.btn-resume > span {
+button.btn-full > span {
 	position: relative;
 	transition: all 1s ease;
+	margin: 0 20px;
 }
-button.btn-start:before,
-button.btn-resume:before {
+button.btn-full:before {
 	content: "";
 	width: 0%;
 	height: 100%;
@@ -141,15 +139,12 @@ button.btn-resume:before {
 	position: absolute;
 	transition: all 1s ease;
 }
-button.btn-start::before { left: 0px; }
-button.btn-start.loading:before,
-button.btn-resume.loading:before {
+button.btn-full::before { left: 0px; }
+button.btn-full.loading:before{
 	width: 100%;
 	left: 0px;
 }
-
-button.btn-start.loading > span,
-button.btn-resume.loading > span { color: #d4cdcd; }
+button.btn-full.loading > span { color: #d4cdcd; }
 
 .hidden {
 	display: none !important;
@@ -282,14 +277,6 @@ button.btn-resume.loading > span { color: #d4cdcd; }
 }
 #gameResultSection .dialog > h2,
 #gameResultSection .dialog > h3 { width: 100%; }
-#nextAction { justify-content: space-evenly; }
-#nextAction span,
-#nextAction button { padding: 10px 5px; }
-#nextAction button {
-	width: 100px;
-	height: 100px;
-	font-size: 2em;
-}
 
 .star {
 	position: relative;
@@ -335,8 +322,7 @@ button.btn-resume.loading > span { color: #d4cdcd; }
 }
 
 @media screen and (min-width: 425px) {
-	button.btn-start,
-	button.btn-resume { width: 250px; }
+	button.btn-full { width: 250px; }
 }
 
 @media screen and (min-width: 768px) {
