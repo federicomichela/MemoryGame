@@ -334,6 +334,11 @@ button.btn-resume.loading > span { color: #d4cdcd; }
 	#gameResultSection .dialog { width: 80%; }
 }
 
+@media screen and (min-width: 425px) {
+	button.btn-start,
+	button.btn-resume { width: 250px; }
+}
+
 @media screen and (min-width: 768px) {
 	#gameGrid {
 		width: 520px;
@@ -346,9 +351,6 @@ button.btn-resume.loading > span { color: #d4cdcd; }
 	}
 
 	section .container { width: 768px; }
-
-	button.btn-start,
-	button.btn-resume { width: 250px; }
 }
 
 @keyframes shake {

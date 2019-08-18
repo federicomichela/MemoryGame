@@ -174,9 +174,7 @@ function createBoard() {
 	container.innerHTML = "";
 
 	// reset container class
-	for (let containerClass in container.classList) {
-		container.classList.remove(containerClass);
-	}
+	container.classList = [];
 	container.classList.add(`game-grid--level-${gameMatch.getLevel()}`);
 
 	// create the grid of cards
