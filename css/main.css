@@ -194,6 +194,8 @@ button.btn-full:disabled { color: #a99c9c; }
 	font-size: 1em;
 }
 
+#gameLevelDescription { font-size: 1.5em; }
+
 #gameActions > button {
 	background-color: transparent;
 	border: 0;
