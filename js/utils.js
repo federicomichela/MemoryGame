@@ -6,17 +6,23 @@ function getRandomInt(min, max) {
 }
 
 function formatTimeToString(ms) {
-    let seconds = Math.round(ms/1000) % 60;
-    let minutes = Math.round(seconds / 60) % 60;
-    let hours = Math.round(minutes / 60) % 24;
-    let days = Math.round(hours/24);
-    let formattedTime = `${hours}h ${minutes}m ${seconds}s`;
+    let formattedTimeParts = [];
+    let dayToMs = 24 * 60 * 60 * 1000;
+    let hourToMs = 60 * 60 * 1000;
+    let minuteToMs = 60 * 1000;
+    let secondToMs = 1000;
 
-    if (days) {
-        formattedTime = `${days}d ${formattedTime}`;
-    }
+    let days = Math.floor(ms / dayToMs);
+    let hours = Math.floor((ms - (days * dayToMs)) / hourToMs);
+    let minutes = Math.floor((ms - (hours * hourToMs)) / minuteToMs);
+    let seconds = Math.floor((ms - (minutes * minuteToMs)) / secondToMs);
 
-    return formattedTime;
+    if (days) { formattedTimeParts.push(`${days}d`); }
+    if (hours || formattedTimeParts.length) { formattedTimeParts.push(`${hours}h`); }
+    if (minutes || formattedTimeParts.length) { formattedTimeParts.push(`${minutes}m`); }
+    if (seconds || formattedTimeParts.length) { formattedTimeParts.push(`${seconds}s`); }
+
+    return formattedTimeParts.join(" ");
 }
 
 Array.prototype.shuffle = function() {
