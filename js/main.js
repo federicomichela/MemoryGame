@@ -1,4 +1,5 @@
-let gameMatch, clockID;
+let gameMatch, clockID, checkGameFocusIntervalID;
+let gameThemePaused = false;
 let sounds = {
 	"gameTheme": new Audio("../audio/celticTheme.wav"),
 	"pairMatch": new Audio("../audio/matchFound.wav"),
@@ -7,6 +8,21 @@ let sounds = {
 }
 
 sounds.gameTheme.loop = true;
+
+/**
+ * Pause game theme sound when page loses focus
+ */
+function checkGameFocus() {
+	if (!document.hasFocus()) {
+		sounds.gameTheme.pause();
+		gameThemePaused = true;
+	} else {
+		if (gameThemePaused) {
+			sounds.gameTheme.play();
+			gameThemePaused = false;
+		}
+	}
+}
 
 /*
  * Method to resize the game pages to match the whole window resize
@@ -460,6 +476,8 @@ function removeHomeListeners() {
  */
 function addGameListeners() {
 	document.getElementById("gameGrid").addEventListener("click", flipCard);
+
+	checkGameFocusIntervalID = setInterval(checkGameFocus, 300);
 }
 
 /*
@@ -467,6 +485,8 @@ function addGameListeners() {
  */
 function removeGameListeners() {
 	document.getElementById("gameGrid").removeEventListener("click", flipCard);
+
+	clearInterval(checkGameFocusIntervalID);
 }
 
 /*
