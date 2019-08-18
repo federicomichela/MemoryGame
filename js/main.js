@@ -1,4 +1,12 @@
 let gameMatch, clockID;
+let sounds = {
+	"gameTheme": new Audio("../audio/celticTheme.wav"),
+	"pairMatch": new Audio("../audio/matchFound.wav"),
+	"wrongMatch": new Audio("../audio/wrongMatch.wav"),
+	"levelComplete": new Audio("../audio/levelComplete.mp3"),
+}
+
+sounds.gameTheme.loop = true;
 
 /*
  * Method to resize the game pages to match the whole window resize
@@ -45,6 +53,8 @@ function showHome() {
 
 	addHomeListeners();
 	removeGameListeners();
+
+	sounds.gameTheme.pause();
 }
 
 /*
@@ -60,6 +70,8 @@ function showGame() {
 
 	removeHomeListeners();
 	addGameListeners();
+
+	sounds.gameTheme.play();
 }
 
 /*
@@ -91,6 +103,9 @@ function showGameResult() {
 			star.querySelector(".star-inner").style.width = "0%";
 		}
 	}
+
+	sounds.gameTheme.pause();
+	sounds.levelComplete.play();
 
 	disableResumeButtons();
 	removeHomeListeners();
@@ -322,6 +337,7 @@ function onActionResultReceived(result) {
 
 				setTimeout( () => {
 					cardDiv.classList.toggle("selected");
+					sounds.wrongMatch.play();
 					cardDiv.querySelector(".card-symbol").innerText = "";
 					addGameListeners();
 				}, 750 );
@@ -333,6 +349,7 @@ function onActionResultReceived(result) {
 
 				setTimeout( () => {
 					cardDiv.classList.add("card_matched");
+					sounds.pairMatch.play();
 					addGameListeners();
 				}, 750 );
 			}
