@@ -1,10 +1,10 @@
 let gameMatch, clockID, checkGameFocusIntervalID;
 let gameThemePaused = false;
 let sounds = {
-	"gameTheme": new Audio("../audio/celticTheme.wav"),
-	"pairMatch": new Audio("../audio/matchFound.wav"),
-	"wrongMatch": new Audio("../audio/wrongMatch.wav"),
-	"levelComplete": new Audio("../audio/levelComplete.mp3"),
+	"gameTheme": new Audio("audio/celticTheme.wav"),
+	"pairMatch": new Audio("audio/matchFound.wav"),
+	"wrongMatch": new Audio("audio/wrongMatch.wav"),
+	"levelComplete": new Audio("audio/levelComplete.mp3"),
 }
 
 sounds.gameTheme.loop = true;
