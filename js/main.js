@@ -277,6 +277,16 @@ function selectLevel(event) {
 		}
 		// add selection to the button that has just been clicked
 		event.target.classList.add("selected");
+
+		// eventually disable resume option
+		let resumeBtn = document.querySelector(".btn-resume");
+		if (!resumeBtn.classList.contains("hidden")) {
+			if (event.target.dataset.level != gameMatch.getLevel()) {
+				resumeBtn.disabled = true;
+			} else {
+				resumeBtn.disabled = false;
+			}
+		}
 	}
 }
 
@@ -321,6 +331,11 @@ function flipCard(event) {
 	}
 }
 
+/**
+ * Play pair matching animation and sound
+ *
+ * @param {Array} pair list of objects containing row, col and symbol of the cards pair
+ */
 function matchPair(pair) {
 	let card1 =  document.querySelector(`.card[data-col="${pair[0].col}"][data-row="${pair[0].row}"]`);
 	let card2 =  document.querySelector(`.card[data-col="${pair[1].col}"][data-row="${pair[1].row}"]`);
@@ -335,6 +350,11 @@ function matchPair(pair) {
 	addGameListeners();
 }
 
+/**
+ * Play pair not matching animation and sound
+ *
+ * @param {Array} pair list of objects containing row, col and symbol of the cards pair
+ */
 function shakePair(pair) {
 	let card1 =  document.querySelector(`.card[data-col="${pair[0].col}"][data-row="${pair[0].row}"]`);
 	let card2 =  document.querySelector(`.card[data-col="${pair[1].col}"][data-row="${pair[1].row}"]`);
@@ -347,6 +367,11 @@ function shakePair(pair) {
 	sounds.wrongMatch.play();
 }
 
+/**
+ * Reset and play cover animation on pair of cards
+ *
+ * @param {Array} pair list of objects containing row, col and symbol of the cards pair
+ */
 function coverPair(pair) {
 	let card1 =  document.querySelector(`.card[data-col="${pair[0].col}"][data-row="${pair[0].row}"]`);
 	let card2 =  document.querySelector(`.card[data-col="${pair[1].col}"][data-row="${pair[1].row}"]`);

@@ -145,6 +145,7 @@ button.btn-full.loading:before{
 	left: 0px;
 }
 button.btn-full.loading > span { color: #d4cdcd; }
+button.btn-full:disabled { color: #a99c9c; }
 
 .hidden {
 	display: none !important;
