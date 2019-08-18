@@ -69,6 +69,7 @@ function showHome() {
 
 	addHomeListeners();
 	removeGameListeners();
+	checkResumeButton();
 
 	sounds.gameTheme.pause();
 }
@@ -240,6 +241,23 @@ function disableResumeButtons() {
 	}
 }
 
+/**
+ * Disable resume button when selected level button does not match with current
+ * game level. Enable otherwise.
+ */
+function checkResumeButton() {
+	let resumeBtn = document.querySelector(".btn-resume");
+	let selectedLevelButton = document.querySelector(".btn-level.selected");
+
+	if (!resumeBtn.classList.contains("hidden")) {
+		if (selectedLevelButton.dataset.level != gameMatch.getLevel()) {
+			resumeBtn.disabled = true;
+		} else {
+			resumeBtn.disabled = false;
+		}
+	}
+}
+
 /*
  * Start a new game on a specified level
  * @param level {Number}
@@ -258,6 +276,8 @@ function initialiseGame(level) {
  */
 function startGame() {
 	let levelSelected = document.querySelector(".btn-level.selected").dataset.level;
+
+	sounds.gameTheme.load();
 
 	initialiseGame(levelSelected);
 }
@@ -295,14 +315,7 @@ function selectLevel(event) {
 		event.target.classList.add("selected");
 
 		// eventually disable resume option
-		let resumeBtn = document.querySelector(".btn-resume");
-		if (!resumeBtn.classList.contains("hidden")) {
-			if (event.target.dataset.level != gameMatch.getLevel()) {
-				resumeBtn.disabled = true;
-			} else {
-				resumeBtn.disabled = false;
-			}
-		}
+		checkResumeButton();
 	}
 }
 
