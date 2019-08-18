@@ -300,7 +300,7 @@ function flipCard(event) {
 		action = "uncover";
 
 		if (card.classList.contains("selected")) {
-			if (card.classList.contains("card_matched")) {
+			if (card.classList.contains("card-matched")) {
 				// TODO: match effect
 			} else {
 				// TODO: shake effect
@@ -309,7 +309,7 @@ function flipCard(event) {
 		}
 	}
 
-	if (card && !card.classList.contains("card_matched")) {
+	if (card && !card.classList.contains("card-matched")) {
 		let symbol = String.fromCharCode(gameMatch.getSymbol(target.dataset.row, target.dataset.col));
 
 		target.querySelector(`.card-symbol`).innerText = symbol;
@@ -331,8 +331,8 @@ function matchPair(pair) {
 	let card1 =  document.querySelector(`.card[data-col="${pair[0].col}"][data-row="${pair[0].row}"]`);
 	let card2 =  document.querySelector(`.card[data-col="${pair[1].col}"][data-row="${pair[1].row}"]`);
 
-	card1.classList.toggle("card_matched");
-	card2.classList.toggle("card_matched");
+	card1.classList.toggle("card-matched");
+	card2.classList.toggle("card-matched");
 
 	sounds.pairMatch.pause();
 	sounds.pairMatch.load();

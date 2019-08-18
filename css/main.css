@@ -234,6 +234,12 @@ button.btn-resume.loading > span { color: #d4cdcd; }
 	height: 90%;
 }
 #gameGrid .card-container.wrong-match { animation: shake 0.5s; }
+#gameGrid .card-container .card .card-symbol {
+	-webkit-transition: font-size .5s ease;
+	-moz-transition: font-size .5s ease;
+	-o-transition: font-size .5s ease;
+	transition: font-size .5s ease;
+}
 #gameGrid .card-container .card > div {
 	border-radius: 30%;
 	display: flex;
@@ -245,9 +251,13 @@ button.btn-resume.loading > span { color: #d4cdcd; }
 #gameGrid .card-container .card div:nth-child(2) { background-color: #d4cdcd; }
 #gameGrid .card-container .card .card-symbol { pointer-events: none; }
 
-.game-grid--level-0 .card-container .card .card-symbol { font-size: 6em; }
-.game-grid--level-1 .card-container .card .card-symbol { font-size: 4em; }
-.game-grid--level-2 .card-container .card .card-symbol { font-size: 1.7em; }
+.game-grid--level-0 .card-container .card .card-symbol { font-size: 5.8em; }
+.game-grid--level-1 .card-container .card .card-symbol { font-size: 3.8em; }
+.game-grid--level-2 .card-container .card .card-symbol { font-size: 1.5em; }
+
+.game-grid--level-0 .card-container .card.card-matched .card-symbol { font-size: 6.5em; }
+.game-grid--level-1 .card-container .card.card-matched .card-symbol { font-size: 4.5em; }
+.game-grid--level-2 .card-container .card.card-matched .card-symbol { font-size: 2em; }
 
 
 
