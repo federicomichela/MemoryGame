@@ -104,7 +104,10 @@ function showGameResult() {
 		}
 	}
 
-	sounds.gameTheme.pause();
+	for (let sound in sounds) {
+		sounds[sound].pause();
+		sounds[sound].load();
+	}
 	sounds.levelComplete.play();
 
 	disableResumeButtons();
@@ -324,6 +327,48 @@ function flipCard(event) {
 	}
 }
 
+function matchPair(pair) {
+	let card1 =  document.querySelector(`.card[data-col="${pair[0].col}"][data-row="${pair[0].row}"]`);
+	let card2 =  document.querySelector(`.card[data-col="${pair[1].col}"][data-row="${pair[1].row}"]`);
+
+	card1.classList.toggle("card_matched");
+	card2.classList.toggle("card_matched");
+
+	sounds.pairMatch.pause();
+	sounds.pairMatch.load();
+	sounds.pairMatch.play();
+
+	addGameListeners();
+}
+
+function shakePair(pair) {
+	let card1 =  document.querySelector(`.card[data-col="${pair[0].col}"][data-row="${pair[0].row}"]`);
+	let card2 =  document.querySelector(`.card[data-col="${pair[1].col}"][data-row="${pair[1].row}"]`);
+
+	card1.parentElement.classList.toggle("wrong-match");
+	card2.parentElement.classList.toggle("wrong-match");
+
+	sounds.wrongMatch.pause();
+	sounds.wrongMatch.load();
+	sounds.wrongMatch.play();
+}
+
+function coverPair(pair) {
+	let card1 =  document.querySelector(`.card[data-col="${pair[0].col}"][data-row="${pair[0].row}"]`);
+	let card2 =  document.querySelector(`.card[data-col="${pair[1].col}"][data-row="${pair[1].row}"]`);
+
+	card1.classList.toggle("selected");
+	card2.classList.toggle("selected");
+
+	card1.parentElement.classList.toggle("wrong-match");
+	card2.parentElement.classList.toggle("wrong-match");
+
+	card1.querySelector(".card-symbol").innerText = "";
+	card2.querySelector(".card-symbol").innerText = "";
+
+	addGameListeners();
+}
+
 /*
  * Callback method to update the DOM based on the result returned by flipping
  * a card.
@@ -332,33 +377,17 @@ function flipCard(event) {
 function onActionResultReceived(result) {
 	switch (result.action) {
 		case GAME_ACTIONS.retry:
-			for (card of result.pair) {
-				let cardDiv = document.querySelector(`.card[data-col="${card.col}"][data-row="${card.row}"]`);
-
-				setTimeout( () => {
-					cardDiv.classList.toggle("selected");
-					sounds.wrongMatch.play();
-					cardDiv.querySelector(".card-symbol").innerText = "";
-					addGameListeners();
-				}, 750 );
-			}
+			setTimeout(shakePair.bind(this, result.pair), 1000);
+			setTimeout(coverPair.bind(this, result.pair), 1500);
 			break;
 		case GAME_ACTIONS.match:
-			for (card of result.pair) {
-				let cardDiv = document.querySelector(`.card[data-row="${card.row}"][data-col="${card.col}"]`);
-
-				setTimeout( () => {
-					cardDiv.classList.add("card_matched");
-					sounds.pairMatch.play();
-					addGameListeners();
-				}, 750 );
-			}
+			setTimeout(matchPair.bind(this, result.pair), 750 );
 
 			if (result.completed) {
 				// stop clock on game page
 				clearInterval(clockID);
 
-				setTimeout(showGameResult, 1000);
+				setTimeout(showGameResult, 2000);
 			}
 
 			break;
